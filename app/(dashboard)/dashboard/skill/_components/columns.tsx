@@ -33,6 +33,42 @@ export default function getColumns(t: (key: TranslationKey) => string): ColumnDe
       },
     },
     {
+      accessorKey: "dark_icon_url",
+      header: t("table.skill.darkIcon"),
+      cell: ({ row }) => {
+        const darkIconUrl = row.original.dark_icon_url;
+
+        if (!darkIconUrl) {
+          return <span className="text-muted-foreground">-</span>;
+        }
+
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+        const imageUrl = new URL(darkIconUrl, baseUrl).toString();
+
+        console.log("image url", imageUrl);
+
+        return <img src={imageUrl} alt="status" className="h-10 w-10 block" />;
+      },
+    },
+    {
+      accessorKey: "light_icon_url",
+      header: t("table.skill.lightIcon"),
+      cell: ({ row }) => {
+        const darkIconUrl = row.original.light_icon_url;
+
+        if (!darkIconUrl) {
+          return <span className="text-muted-foreground">-</span>;
+        }
+
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+        const imageUrl = new URL(darkIconUrl, baseUrl).toString();
+
+        console.log("image url", imageUrl);
+
+        return <img src={imageUrl} alt="status" className="h-10 w-10 block" />;
+      },
+    },
+    {
       id: "actions",
       enableHiding: false,
       cell: ({ row }) => {

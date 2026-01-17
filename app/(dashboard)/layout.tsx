@@ -3,9 +3,9 @@ import * as React from "react";
 import AppSidebar from "@/components/dashboard/app-sidebar";
 import ModeToggle from "@/components/mode-toggle";
 import LanguageToggle from "@/components/language-toggle";
+import Breadcrumbs from "@/components/dashboard/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import Breadcrumbs from "@/components/dashboard/breadcrumb";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (

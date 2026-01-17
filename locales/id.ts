@@ -249,6 +249,8 @@ export const id = {
 
   "table.skill.search": "Cari berdasarkan nama...",
   "table.skill.name": "Nama",
+  "table.skill.darkIcon": "Icon Gelap",
+  "table.skill.lightIcon": "Icon Terang",
 
   "form.skill.label.name": "Nama",
   "form.skill.label.darkIcon": "Icon Gelap",

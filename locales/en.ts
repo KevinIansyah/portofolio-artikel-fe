@@ -248,6 +248,8 @@ export const en = {
 
   "table.skill.search": "Search by name...",
   "table.skill.name": "Name",
+  "table.skill.darkIcon": "Dark Icon",
+  "table.skill.lightIcon": "Light Icon",
 
   "form.skill.label.name": "Name",
   "form.skill.label.darkIcon": "Dark Icon",

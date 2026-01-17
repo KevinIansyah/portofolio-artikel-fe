@@ -185,7 +185,44 @@
   }
 }
 
-/* Styling Tiptap - Gunakan prose untuk dark mode support */
+html {
+  /* scrollbar-gutter: stable; */
+  scroll-behavior: smooth;
+}
+
+body {
+  letter-spacing: var(--tracking-normal);
+}
+
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--primary) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 9999px;
+}
+
+@media (prefers-color-scheme: dark) {
+  *::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: red;
+  }
+}
+
 .tiptap {
   @apply focus:outline-none;
 }
@@ -251,7 +288,6 @@
   @apply ring-1 ring-primary;
 }
 
-/* Styling untuk text align */
 .tiptap [style*="text-align: center"] {
   @apply text-center;
 }
@@ -341,4 +377,51 @@
   border: 1px solid oklch(1 0 0) !important;
   color: oklch(1 0 0) !important;
   transition: all 0.2s ease;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(20px, -20px);
+  }
+}
+
+@keyframes float-reverse {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-20px, 20px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-reverse 5s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
 }
