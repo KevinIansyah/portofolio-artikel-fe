@@ -1,8 +1,11 @@
 import { Metadata } from "next";
 
 import { apiServer } from "@/lib/api/server";
-import { User } from "@/lib/types/user";
+import { Project } from "@/lib/types/project";
+import { Skill } from "@/lib/types/skill";
+
 import Home from "./_components/home";
+import { Paginator } from "@/lib/types/paginator";
 
 export const metadata: Metadata = {
   title: "Kevin Iansyah - Full Stack Developer & Software Engineer",
@@ -24,18 +27,20 @@ export const metadata: Metadata = {
   },
 };
 
-// async function getInitialUser(): Promise<User | null> {
-//   try {
-//     const user = await apiServer.get<User>("/api/me");
+async function getInitialData() {
+  try {
+    const [projects, skills] = await Promise.all([apiServer.get<Paginator<Project>>("/api/projects"), apiServer.get<Skill[]>("/api/skills")]);
 
-//     return user;
-//   } catch (error) {
-//     console.error("Failed to fetch user:", error);
+    return { projects, skills };
+  } catch (e) {
+    console.error("Failed to fetch form options:", e);
 
-//     return null;
-//   }
-// }
+    return { projects: null, skills: [] };
+  }
+}
 
 export default async function Page() {
-  return <Home />;
+  const { projects, skills } = await getInitialData();
+
+  return <Home projects={projects} skills={skills} />;
 }

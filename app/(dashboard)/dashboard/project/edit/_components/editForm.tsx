@@ -72,7 +72,7 @@ export default function EditForm({ project, categories, skills }: EditFormProps)
     setValidationErrors({});
     setLoading(true);
 
-    const loadingToast = toast.loading("Memperbarui artikel...");
+    const loadingToast = toast.loading("Memperbarui proyek...");
 
     try {
       const formData = new FormData();
@@ -105,6 +105,11 @@ export default function EditForm({ project, categories, skills }: EditFormProps)
       selectedSkills.forEach((skillId) => {
         formData.append("skills[]", skillId.toString());
       });
+
+      console.log("=== FormData Contents ===");
+      for (const [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
 
       await apiClient.postFormData<ProjectEditData>(`/api/projects/${project.id}`, formData);
 

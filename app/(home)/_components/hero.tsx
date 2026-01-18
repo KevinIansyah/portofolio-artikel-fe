@@ -1,14 +1,16 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+import { Button } from "@/components/ui/button";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsVisible(true);
   }, []);
 
@@ -52,11 +54,13 @@ export default function HeroSection() {
 
           {/* Buttons */}
           <div className={`mt-8 flex justify-center gap-3 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "1100ms" }}>
-            <Button size="lg" className="shadow-none">
-              Lihat Proyek
+            <Button size="lg" className="shadow-none" asChild>
+              <Link href="#projects">Lihat Proyek</Link>
             </Button>
-            <Button size="lg" className="shadow-none" variant="outline">
-              Unduh Resume
+            <Button size="lg" className="shadow-none" variant="outline" asChild>
+              <Link href="/pdf/resume.pdf" target="_blank" download>
+                Unduh Resume
+              </Link>
             </Button>
           </div>
 

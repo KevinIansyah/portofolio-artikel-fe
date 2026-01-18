@@ -1,12 +1,13 @@
 import { apiServer } from "@/lib/api/server";
-import { Article } from "@/lib/types/article";
+
 import { Paginator } from "@/lib/types/paginator";
+import { Project } from "@/lib/types/project";
 
 import Projects from "./_components/project";
 
-async function getInitialProjects(): Promise<Paginator<Article> | null> {
+async function getInitialProjects(): Promise<Paginator<Project> | null> {
   try {
-    const projects = await apiServer.get<Paginator<Article>>("/api/projects");
+    const projects = await apiServer.get<Paginator<Project>>("/api/projects");
 
     return projects;
   } catch (error) {

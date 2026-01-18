@@ -10,14 +10,14 @@ export interface Project {
   content: string;
   thumbnail_url: string;
   demo_url?: string;
-  projecrt_url?: string;
+  project_url?: string;
   status: "draft" | "published";
   published_at: string;
   created_at?: string;
   updated_at?: string;
-  categories?: Category[];
-  skills?: Skill[];
-  user?: User;
+  categories: Category[];
+  skills: Skill[];
+  user: User;
 }
 
 export interface ProjectFormData {

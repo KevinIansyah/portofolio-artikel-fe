@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Alice&family=Great+Vibes&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Alice&family=Great+Vibes&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"); */
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -92,9 +92,9 @@
   --sidebar-accent-foreground: oklch(0.9299 0.0334 272.7879);
   --sidebar-border: oklch(0.2827 0.1351 291.0894);
   --sidebar-ring: oklch(0.6056 0.2189 292.7172);
-  --font-sans: Lato, ui-sans-serif, sans-serif, system-ui;
-  --font-serif: Playfair Display, serif;
-  --font-mono: Fira Code, monospace;
+  --font-sans: Geist, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Geist Mono, monospace;
   --radius: 0.625rem;
   --shadow-x: 2px;
   --shadow-y: 2px;
@@ -298,6 +298,14 @@ body {
 
 .tiptap [style*="text-align: left"] {
   @apply text-left;
+}
+
+.prose p {
+  @apply text-muted-foreground;
+}
+
+.prose p strong {
+  @apply text-foreground;
 }
 
 [data-sonner-toast][data-type="warning"] {

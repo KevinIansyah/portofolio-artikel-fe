@@ -45,7 +45,7 @@ export default function Actions({ project }: ActionsProps) {
 
       setShowDeleteDialog(false);
 
-      await mutate((key: Arguments) => Array.isArray(key) && key[0]?.toString().includes("/api/articles"));
+      await mutate((key: Arguments) => Array.isArray(key) && key[0]?.toString().includes("/api/projects"));
     } catch (err) {
       if (err instanceof ApiError) {
         toast.error("Gagal menghapus proyek", {

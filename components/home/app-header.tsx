@@ -8,14 +8,13 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/compon
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import ModeToggle from "../mode-toggle";
-import LanguageToggle from "../language-toggle";
+// import LanguageToggle from "../language-toggle";
 
-// Data navigasi
 const mainNavItems = [
   { title: "Beranda", href: "#home" },
-  { title: "Tentang", href: "#about" },
+  { title: "Teknologi", href: "#technology" },
   { title: "Proyek", href: "#projects" },
-  { title: "Artikel", href: "#articles" },
+  // { title: "Artikel", href: "#articles" },
   { title: "Kontak", href: "#contact" },
 ];
 
@@ -38,7 +37,6 @@ export default function AppHeader() {
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <SheetDescription className="sr-only">Daftar tautan navigasi utama pada situs web.</SheetDescription>
                 <SheetHeader className="flex justify-center items-center">
-                  {/* <img src="Logo" alt="Logo" className="w-8 h-8" /> */}
                   <span className="text-lg font-bold">KI</span>
                 </SheetHeader>
                 <div className="flex h-full flex-1 flex-col justify-between space-y-4">
@@ -57,7 +55,6 @@ export default function AppHeader() {
           <div className="w-full flex items-center justify-between space-x-2">
             <Link className="flex items-center" href="/">
               <span className="text-lg font-bold">KI</span>
-              {/* <img src={Logo} alt="Logo" className="w-8 h-8" /> */}
             </Link>
 
             <div className="hidden h-full lg:flex">
@@ -78,7 +75,7 @@ export default function AppHeader() {
             </div>
 
             <div className="flex items-center gap-2">
-              <LanguageToggle />
+              {/* <LanguageToggle /> */}
               <ModeToggle />
             </div>
           </div>
