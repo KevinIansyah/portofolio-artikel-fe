@@ -28,6 +28,8 @@ export interface ProjectFormData {
   content_id: string;
   content_en: string;
   thumbnail: File | null;
+  demo_url: string | null;
+  project_url: string | null;
   status: "draft" | "published";
   reading_time: number;
   cetagories: number[];
@@ -39,7 +41,7 @@ export interface ProjectEditData {
   user_id: number;
   thumbnail_url: string;
   demo_url?: string;
-  projecrt_url?: string;
+  project_url?: string;
   status: "draft" | "published";
   published_at: string;
   created_at: string;

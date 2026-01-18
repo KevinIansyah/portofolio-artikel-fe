@@ -40,7 +40,7 @@ export default function EditForm({ project, categories, skills }: EditFormProps)
   const [contentEn, setContentEn] = useState(project.translations.en.content || "");
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [demoUrl, setDemoUrl] = useState(project.demo_url || "");
-  const [projectUrl, setProjectUrl] = useState(project.projecrt_url || "");
+  const [projectUrl, setProjectUrl] = useState(project.project_url || "");
   const [status, setStatus] = useState<"draft" | "published">(project.status || "draft");
   const [selectedCategories, setSelectedCategories] = useState<number[]>(project.categories?.map((category) => category.id) || []);
   const [selectedSkills, setSelectedSkills] = useState<number[]>(project.skills?.map((skill) => skill.id) || []);
@@ -219,13 +219,13 @@ export default function EditForm({ project, categories, skills }: EditFormProps)
 
           <Field>
             <FieldLabel htmlFor="demoUrl">{t("form.project.label.demoUrl")}</FieldLabel>
-            <Input id="readingTime" type="url" min={1} placeholder="httpps://" value={demoUrl} onChange={(e) => setDemoUrl(e.target.value)} />
+            <Input id="demoUrl" type="url" min={1} placeholder="https://" value={demoUrl} onChange={(e) => setDemoUrl(e.target.value)} />
             {validationErrors.demo_url && <ValidationError message={validationErrors.demo_url[0]} />}
           </Field>
 
           <Field>
             <FieldLabel htmlFor="projectUrl">{t("form.project.label.projectUrl")}</FieldLabel>
-            <Input id="readingTime" type="url" min={1} placeholder="httpps://" value={projectUrl} onChange={(e) => setProjectUrl(e.target.value)} />
+            <Input id="projectUrl" type="url" min={1} placeholder="https://" value={projectUrl} onChange={(e) => setProjectUrl(e.target.value)} />
             {validationErrors.project_url && <ValidationError message={validationErrors.project_url[0]} />}
           </Field>
         </div>
