@@ -1,3 +1,92 @@
-export default function Page() {
-  return <div className="min-h-screen flex justify-center items-center">Projects Page Cooming Soon</div>;
+import { Metadata } from "next";
+
+import { apiServer } from "@/lib/api/server";
+import { ApiError } from "@/lib/types/api";
+import { Project } from "@/lib/types/project";
+import { Paginator } from "@/lib/types/paginator";
+import { getServerLocale } from "@/lib/server-utils";
+
+import { ErrorWrapper } from "@/components/error-wrapper";
+import Projects from "./_components/projects";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const isEN = locale === "en";
+
+  return {
+    title: isEN ? "Projects – Kevin Iansyah" : "Proyek – Kevin Iansyah",
+
+    description: isEN
+      ? "A collection of projects I’ve built, ranging from web applications, dashboards, APIs, to experimental and personal works."
+      : "Kumpulan proyek yang pernah saya kerjakan, mulai dari aplikasi web, dashboard, API, hingga proyek eksperimen dan personal.",
+
+    keywords: isEN
+      ? ["Kevin Iansyah", "Projects", "Web Development", "Web Application", "Dashboard", "API", "React", "Next.js", "Laravel", "Portfolio"]
+      : ["Kevin Iansyah", "Proyek", "Web Development", "Aplikasi Web", "Dashboard", "API", "React", "Next.js", "Laravel", "Portofolio"],
+
+    openGraph: {
+      title: isEN ? "Projects – Kevin Iansyah" : "Proyek – Kevin Iansyah",
+      description: isEN
+        ? "Explore projects I’ve worked on, including web apps, dashboards, APIs, and various experiments."
+        : "Jelajahi proyek yang pernah saya kerjakan, termasuk aplikasi web, dashboard, API, dan berbagai eksperimen.",
+      type: "website",
+      locale: isEN ? "en_US" : "id_ID",
+      url: "https://keviniansyah.site/projects",
+      siteName: isEN ? "Kevin Iansyah Portfolio" : "Portofolio Kevin Iansyah",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: isEN ? "Projects – Kevin Iansyah" : "Proyek – Kevin Iansyah",
+      description: isEN
+        ? "A collection of projects I’ve built across web development and software engineering."
+        : "Kumpulan proyek yang saya kerjakan di bidang web development dan software engineering.",
+    },
+    alternates: {
+      canonical: "https://keviniansyah.site/projects",
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
+async function getInitialData(locale: string) {
+  try {
+    const projects = await apiServer.get<Paginator<Project>>(`/api/projects`);
+
+    return { projects, error: null };
+  } catch (error) {
+    console.error("Failed to fetch projects:", error);
+
+    if (error instanceof ApiError) {
+      return {
+        projects: null,
+        error: {
+          message: error.message,
+          status: error.status,
+          errors: error.errors,
+        },
+      };
+    }
+
+    return {
+      projects: null,
+      error: {
+        message: locale === "id" ? "Terjadi kesalahan yang tidak terduga" : "An unexpected error occurred",
+        status: 500,
+      },
+    };
+  }
+}
+
+export default async function Page() {
+  const locale = await getServerLocale();
+  const { projects, error } = await getInitialData(locale);
+
+  return (
+    <ErrorWrapper error={error}>
+      <Projects initialData={projects} />
+    </ErrorWrapper>
+  );
 }

@@ -51,7 +51,7 @@ export function DataTable({ initialData }: DataTableProps) {
   const [search, setSearch] = React.useState(searchParams.get("search") || "");
   const [debouncedSearch, setDebouncedSearch] = React.useState(search);
 
-  const columns = getColumns(t);
+  const columns = getColumns(t, language);
 
   // Debounce search
   React.useEffect(() => {
@@ -91,7 +91,7 @@ export function DataTable({ initialData }: DataTableProps) {
   }, [currentPage, perPage, debouncedSearch]);
 
   // Fetch data with SWR
-  const { data, error, isLoading, mutate } = useSWR<Paginator<Article>>([buildApiUrl(), language], ([url]) => apiClient.get(url), {
+  const { data, error, isLoading } = useSWR<Paginator<Article>>([buildApiUrl(), language], ([url]) => apiClient.get(url), {
     fallbackData: initialData || undefined,
     revalidateOnFocus: false,
     keepPreviousData: true,
@@ -202,7 +202,7 @@ export function DataTable({ initialData }: DataTableProps) {
               <TableRow key={headerGroup.id} className="bg-primary hover:bg-primary">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="text-white">
+                    <TableHead key={header.id} className="text-black dark:text-white">
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
@@ -248,7 +248,7 @@ export function DataTable({ initialData }: DataTableProps) {
       {/* Pagination */}
       <div className="flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
-          {t("datatable.showing")} {meta?.from || 0} {t("datatable.to")} {meta?.to || 0} of {meta?.total || 0} {t("articles.lowercase")}
+          {t("datatable.showing")} {meta?.from || 0} {t("datatable.to")} {meta?.to || 0} {t("datatable.of")} {meta?.total || 0} {t("articles.lowercase")}
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} disabled={currentPage === 1 || isLoading}>

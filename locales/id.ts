@@ -10,11 +10,34 @@ export const id = {
 
   // Navbar
   "nav.home": "Beranda",
-  "nav.about": "Tentang",
-  "nav.services": "Layanan",
+  "nav.technology": "Teknologi",
+  "nav.project": "Proyek",
   "nav.contact": "Kontak",
-  "nav.portfolio": "Portofolio",
-  "nav.blog": "Blog",
+  "nav.article": "Artikel",
+
+  // Footer
+  "footer.description": "Fullstack Web Developer berpengalaman dengan teknologi modern seperti Vue, React, Tailwind CSS, Laravel, dan NestJS.",
+
+  "footer.articleSubscribe": "Berlangganan Artikel",
+  "footer.articleSubscribeDescription": "Dapatkan artikel dan pembaruan terbaru seputar web development langsung ke email Anda.",
+
+  "form.footer.placeholder.email": "Masukkan alamat email Anda, contoh: email@example.com",
+
+  "footer.navigation": "Navigasi",
+  "footer.navigation.home": "Beranda",
+  "footer.navigation.technology": "Teknologi",
+  "footer.navigation.project": "Proyek",
+  "footer.navigation.contact": "Kontak",
+  "footer.navigation.article": "Artikel",
+
+  "footer.socialMedia": "Media Sosial",
+
+  "footer.explore": "Jelajahi",
+  "footer.explore.allProject": "Semua Proyek",
+  "footer.explore.allArticle": "Semua Artikel",
+  "footer.explore.publicApi": "API Publik",
+
+  "footer.copyright": "© 2025 Kevin Iansyah. Semua hak dilindungi.",
 
   // Buttons
   "btn.login": "Masuk",
@@ -23,17 +46,15 @@ export const id = {
   "btn.cancel": "Batal",
   "btn.save": "Simpan",
 
+  // Sonner
+  "sonner.description.languageChange": "Bahasa telah berubah. Mengarahkan ke halaman utama...",
+
   // Common
   "common.welcome": "Selamat Datang",
   "common.loading": "Memuat...",
   "common.error": "Terjadi kesalahan",
   "common.success": "Berhasil",
   "common.search": "Cari",
-
-  // Footer
-  "footer.copyright": "© 2024 Semua hak dilindungi",
-  "footer.privacy": "Kebijakan Privasi",
-  "footer.terms": "Syarat & Ketentuan",
 
   // Datatable
   "datatable.add": "Tambah",
@@ -51,7 +72,90 @@ export const id = {
   "datatable.previous": "Sebelumnya",
   "datatable.next": "Berikutnya",
 
-  // Heading
+  // Home Hero
+  "heading.home.hero.title": "Hii, Saya",
+  "heading.home.hero.description": "Fullstack Web Developer berpengalaman dengan teknologi modern seperti Vue, React, Tailwind CSS, Laravel, dan NestJS",
+
+  "button.home.hero.showProjects": "Lihat Proyek",
+  "button.home.hero.downloadResume": "Unduh Resume",
+
+  "home.hero.builtWith": "Dibuat dengan: ",
+
+  // Home Skill
+  "heading.home.skill.title": "Teknologi yang Digunakan",
+  "heading.home.skill.subtitle": "Teknologi",
+  "heading.home.skill.description": "Beberapa teknologi yang saya gunakan dalam pengembangan aplikasi web",
+
+  "home.skill.empty": "Tidak ada teknologi yang ditemukan",
+
+  // Home Project
+  "heading.home.project.title": "Studi Kasus Terbaru",
+  "heading.home.project.subtitle": "Proyek Saya",
+  "heading.home.project.description": "Beberapa proyek yang telah saya kerjakan, mulai dari landing page, aplikasi web interaktif hingga sistem informasi untuk pengelolaan data dan proses bisnis",
+
+  "button.home.project.viewAll": "Lihat Semua Proyek",
+
+  "home.project.empty": "Tidak ada proyek yang ditemukan",
+
+  // Home Article
+  "heading.home.article.title": "Artikel & Insight",
+  "heading.home.article.subtitle": "Artikel",
+  "heading.home.article.description": "Berbagi pengetahuan, pengalaman, serta pandangan tentang teknologi, pengembangan web, dan tren industri terkini.",
+
+  "button.home.article.viewAll": "Lihat Semua Artikel",
+
+  "home.article.empty": "Tidak ada artikel yang ditemukan",
+  "home.article.seen": "dilihat",
+  "home.article.minute": "menit",
+
+  // Home Contact
+  "heading.home.contact.title": "Hubungi Saya",
+  "heading.home.contact.subtitle": "Kontak",
+  "heading.home.contact.description":
+    "Jika Anda memiliki pertanyaan, ingin bekerja sama, atau sekadar menyapa, jangan ragu untuk menghubungi saya melalui formulir atau informasi kontak yang tersedia di bawah ini",
+
+  "home.contact.leaveMessage": "Tinggalkan Pesan",
+  "home.contact.contactInfo": "Informasi Kontak",
+  "home.contact.address": "Alamat",
+  "home.contact.phoneNumber": "Nomor Telepon",
+
+  "form.home.contact.placeholder.name": "Masukkan nama Anda, contoh: John Doe",
+  "form.home.contact.placeholder.email": "Masukkan email Anda, contoh: email@example.com",
+  "form.home.contact.placeholder.phone": "Masukkan nomor kontak Anda, contoh: 62xx-xxxx-xxxx",
+  "form.home.contact.placeholder.message": "Masukkan pesan Anda",
+
+  "form.home.contact.button.submit": "Kirim",
+  "form.home.contact.button.submit.process": "Sedang mengirim...",
+
+  // Home All Projects
+  "heading.home.project.all.title": "Semua Proyek",
+  "heading.home.project.all.subtitle": "Proyek",
+  "heading.home.project.all.description": "Semua proyek yang pernah saya kerjakan, mulai dari landing page, aplikasi web interaktif, hingga sistem manajemen informasi dan proses bisnis",
+
+  // Home Detail Project
+  "home.detail.project.technology": "Teknologi",
+
+  "button.home.detail.project.seeDemo": "Lihat Demo",
+  "button.home.detail.project.seeCode": "Lihat Kode",
+
+  // Home Detail Article
+  "home.detail.article.tag": "Tag",
+
+  // Login
+  "heading.login.title": "Masuk ke akun Anda",
+  "heading.login.description": "Masukkan email Anda untuk masuk ke akun",
+
+  "form.login.label.password": "Kata Sandi",
+
+  "login.show_password": "Tampilkan kata sandi",
+  "login.hide_password": "Sembunyikan kata sandi",
+
+  "form.login.button.submit": "Masuk",
+  "form.login.button.submin.process": "Sedang masuk...",
+
+  "login.signup": "Belum punya akun? Daftar sekarang!",
+
+  // Dashboard
   "heading.dashboard.title": "Selamat Datang",
   "heading.dashboard.description": "Lihat ringkasan informasi dan aktivitas terbaru Anda",
 

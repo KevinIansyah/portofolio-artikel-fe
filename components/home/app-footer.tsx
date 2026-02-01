@@ -4,6 +4,8 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+import { useLanguage } from "@/hooks/use-language";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -23,31 +25,31 @@ interface GeneralLinkItem {
   href: string;
 }
 
-const mainNavItems: NavItem[] = [
-  // { title: "Tentang Saya", href: "#tentang-saya" },
-  { title: "Teknologi", href: "#technology" },
-  { title: "Proyek", href: "#projects" },
-  // { title: "Pengalaman", href: "#pengalaman" },
-  { title: "Kontak", href: "#contact" },
-  { title: "Artikel", href: "#articles" },
-];
-
-const socials: SocialItem[] = [
-  { name: "Facebook", url: "https://web.facebook.com/kevin.iansyah/" },
-  { name: "Instagram", url: "https://www.instagram.com/keviniansyah/" },
-  { name: "Twitter", url: "#" },
-  { name: "LinkedIn", url: "https://www.linkedin.com/in/kevin-iansyah/" },
-  { name: "GitHub", url: "https://github.com/KevinIansyah" },
-];
-
-const generalLinks: GeneralLinkItem[] = [
-  { title: "Semua Artikel", href: "/articles" },
-  { title: "Semua Proyek", href: "/projects" },
-  { title: "API Publik", href: "#" },
-];
-
 export default function AppFooter() {
+  const { t } = useLanguage();
   const [email, setEmail] = useState("");
+
+  const mainNavItems: NavItem[] = [
+    { title: t("nav.home"), href: "/" },
+    { title: t("nav.technology"), href: "#technology" },
+    { title: t("nav.project"), href: "#projects" },
+    { title: t("nav.article"), href: "#articles" },
+    { title: t("nav.contact"), href: "#contact" },
+  ];
+
+  const socials: SocialItem[] = [
+    { name: "Facebook", url: "https://web.facebook.com/kevin.iansyah/" },
+    { name: "Instagram", url: "https://www.instagram.com/keviniansyah/" },
+    { name: "Twitter", url: "#" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/kevin-iansyah/" },
+    { name: "GitHub", url: "https://github.com/KevinIansyah" },
+  ];
+
+  const generalLinks: GeneralLinkItem[] = [
+    { title: t("footer.explore.allArticle"), href: "/articles" },
+    { title: t("footer.explore.allProject"), href: "/projects" },
+    { title: t("footer.explore.publicApi"), href: "#" },
+  ];
 
   const subscribeNewsletter = () => {
     if (email) {
@@ -64,24 +66,23 @@ export default function AppFooter() {
             {/* Brand & Newsletter */}
             <div className="lg:col-span-1 lg:w-[80%]">
               <h3 className="text-lg font-semibold mb-4">KI</h3>
-              <p className="text-muted-foreground text-sm mb-6 max-w-xs">Fullstack Web Developer berpengalaman dengan teknologi modern seperti Vue, React, Tailwind CSS, Laravel, dan NestJS.</p>
+              <p className="text-muted-foreground text-sm mb-6 max-w-xs">{t("footer.description")}</p>
 
               <div>
                 <h4 className="text-sm font-medium mb-4">Berlangganan Artikel</h4>
                 <div className="flex">
-                  <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Masukkan email Anda" className="text-sm flex-1" />
+                  <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder={t("form.footer.placeholder.email")} className="text-sm flex-1" />
                   <Button onClick={subscribeNewsletter} className="ml-2 shadow-none" disabled>
                     <ArrowRight />
-                    <span className="sr-only">Tombol berlangganan artikel</span>
                   </Button>
                 </div>
-                <p className="text-xs text-muted-foreground mt-4">Dapatkan artikel dan pembaruan terbaru seputar web development langsung ke email Anda.</p>
+                <p className="text-sm text-muted-foreground mt-4">{t("footer.articleSubscribeDescription")}</p>
               </div>
             </div>
 
             {/* Navigation */}
             <div>
-              <h4 className="text-sm font-semibold mb-4">Navigasi</h4>
+              <h4 className="text-sm font-semibold mb-4">{t("footer.navigation")}</h4>
               <ul className="space-y-4">
                 {mainNavItems.map((item) => (
                   <li key={item.title}>
@@ -95,7 +96,7 @@ export default function AppFooter() {
 
             {/* Social Media */}
             <div>
-              <h4 className="text-sm font-semibold mb-4">Media Sosial</h4>
+              <h4 className="text-sm font-semibold mb-4">{t("footer.socialMedia")}</h4>
               <ul className="space-y-4">
                 {socials.map((item) => (
                   <li key={item.name}>
@@ -109,7 +110,7 @@ export default function AppFooter() {
 
             {/* General Links */}
             <div>
-              <h4 className="text-sm font-semibold mb-4">Jelajahi</h4>
+              <h4 className="text-sm font-semibold mb-4">{t("footer.explore")}</h4>
               <ul className="space-y-4">
                 {generalLinks.map((item) => (
                   <li key={item.title}>
@@ -129,7 +130,7 @@ export default function AppFooter() {
         <div className="py-10">
           <div className="flex flex-col lg:flex-row justify-center items-center">
             <div className="mb-4 lg:mb-0">
-              <p className="text-sm text-muted-foreground">© 2025 Kevin Iansyah. All rights reserved.</p>
+              <p className="text-sm text-muted-foreground">{t("footer.copyright")}</p>
             </div>
           </div>
         </div>

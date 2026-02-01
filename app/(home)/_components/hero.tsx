@@ -1,13 +1,16 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { ChevronRight } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
+
+import { useLanguage } from "@/hooks/use-language";
 
 import { Button } from "@/components/ui/button";
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -35,7 +38,7 @@ export default function HeroSection() {
               }`}
               style={{ transitionDelay: "500ms" }}
             >
-              Haii, Saya
+              {t("heading.home.hero.title")}
               <span className="bg-muted/50 inline-flex items-center justify-center gap-x-2 rounded-full px-2.5 py-1.5 text-sm font-semibold">
                 <ChevronRight className="w-4 h-4" />
               </span>
@@ -49,17 +52,17 @@ export default function HeroSection() {
 
           {/* Description */}
           <div className={`mx-auto mt-5 max-w-3xl text-center transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "900ms" }}>
-            <p className="text-muted-foreground text-xl">Fullstack Web Developer berpengalaman dengan teknologi modern seperti Vue, React, Tailwind CSS, Laravel, dan NestJS.</p>
+            <p className="text-muted-foreground text-xl">{t("heading.home.hero.description")}</p>
           </div>
 
           {/* Buttons */}
           <div className={`mt-8 flex justify-center gap-3 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "1100ms" }}>
             <Button size="lg" className="shadow-none" asChild>
-              <Link href="#projects">Lihat Proyek</Link>
+              <Link href="#projects">{t("button.home.hero.showProjects")}</Link>
             </Button>
             <Button size="lg" className="shadow-none" variant="outline" asChild>
               <Link href="/pdf/resume.pdf" target="_blank" download>
-                Unduh Resume
+                {t("button.home.hero.downloadResume")}
               </Link>
             </Button>
           </div>
@@ -69,11 +72,9 @@ export default function HeroSection() {
             className={`mt-5 flex items-center justify-center gap-x-1 sm:gap-x-3 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
             style={{ transitionDelay: "1300ms" }}
           >
-            <span className="text-muted-foreground text-sm">Dibangun dengan:</span>
+            <span className="text-muted-foreground text-sm">{t("home.hero.builtWith")}</span>
             <span className="text-sm font-bold">Next.js</span>
-            <svg className="text-muted-foreground h-5 w-5" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M6 13L10 3" stroke="currentColor" strokeLinecap="round" />
-            </svg>
+            <span className="text-xs">&</span>
             <span className="text-sm font-bold">Laravel</span>
           </div>
         </div>

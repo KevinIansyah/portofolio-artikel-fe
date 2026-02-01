@@ -1,10 +1,10 @@
 "use client";
 
-import { format } from "date-fns";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
 import { Article } from "@/lib/types/article";
+import { formatDateTable } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +12,7 @@ import Actions from "./actions";
 
 import { TranslationKey } from "@/locales";
 
-export default function getColumns(t: (key: TranslationKey) => string): ColumnDef<Article>[] {
+export default function getColumns(t: (key: TranslationKey) => string, language: "id" | "en"): ColumnDef<Article>[] {
   return [
     {
       accessorKey: "title",
@@ -25,9 +25,9 @@ export default function getColumns(t: (key: TranslationKey) => string): ColumnDe
       cell: ({ row }) => {
         const article = row.original;
         return (
-          <div className="flex flex-col gap-1">
-            <span className="font-medium">{article.title}</span>
-            <span className="text-xs text-muted-foreground">{article.slug}</span>
+          <div className="flex flex-col gap-1 min-w-120 max-w-150">
+            <span className="font-medium wrap-break-words whitespace-normal">{article.title}</span>
+            <span className="text-xs text-muted-foreground wrap-break-words whitespace-normal">{article.slug}</span>
           </div>
         );
       },
@@ -108,7 +108,7 @@ export default function getColumns(t: (key: TranslationKey) => string): ColumnDe
       header: t("table.article.published_at"),
       cell: ({ row }) => {
         const date = row.getValue("published_at") as string;
-        return date ? format(new Date(date), "MM dd,yyyy") : "-";
+        return date ? formatDateTable(date, language) : "-";
       },
     },
     {

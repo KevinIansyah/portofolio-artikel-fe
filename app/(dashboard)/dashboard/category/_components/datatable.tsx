@@ -197,7 +197,7 @@ export function DataTable({ initialData }: DataTableProps) {
               <TableRow key={headerGroup.id} className="bg-primary hover:bg-primary">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="text-white">
+                    <TableHead key={header.id} className="text-black dark:text-white">
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );

@@ -1,8 +1,15 @@
+import { Metadata } from "next";
+
 import { apiServer } from "@/lib/api/server";
 import { Category } from "@/lib/types/category";
 import { Paginator } from "@/lib/types/paginator";
 
 import Tags from "./_components/tag";
+
+export const metadata: Metadata = {
+  title: "Tag - Kevin Iansyah",
+  description: "Tag overview page",
+};
 
 async function getInitialTags(): Promise<Paginator<Category> | null> {
   try {

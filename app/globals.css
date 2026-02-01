@@ -232,7 +232,7 @@ body {
 }
 
 .tiptap h1 {
-  @apply text-3xl font-bold my-4;
+  @apply text-3xl font-bold my-4 text-foreground;
 }
 
 .tiptap h2 {

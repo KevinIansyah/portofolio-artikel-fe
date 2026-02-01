@@ -372,7 +372,7 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
         </Popover>
       </div>
 
-      <EditorContent editor={editor} />
+      <EditorContent className="max-h-[calc(100vh-180px)] overflow-auto" editor={editor} />
     </div>
   );
 };

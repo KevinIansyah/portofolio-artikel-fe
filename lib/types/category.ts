@@ -2,6 +2,8 @@ export interface Category {
   id: number;
   name: string;
   slug: string;
+  slug_id: string;
+  slug_en: string;
   type: "article" | "project";
 }
 

@@ -1,57 +1,57 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { apiServer } from "@/lib/api/server";
+import { Article } from "@/lib/types/article";
 import { getFullImageUrl } from "@/lib/utils";
-import { Project } from "@/lib/types/project";
+import { apiServer } from "@/lib/api/server";
 import { ApiError } from "@/lib/types/api";
+import { getServerLocale } from "@/lib/server-utils";
 
 import Detail from "./_components/detail";
 import { ErrorWrapper } from "@/components/error-wrapper";
-import { getServerLocale } from "@/lib/server-utils";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const locale = await getServerLocale();
 
-  const { project } = await getInitialProject(slug);
+  const { article } = await getInitialArticle(slug);
 
-  if (!project) {
+  if (!article) {
     return {
-      title: locale === "id" ? "Proyek Tidak Ditemukan - Kevin Iansyah" : "Project Not Found - Kevin Iansyah",
-      description: locale === "id" ? "Proyek tidak ditemukan" : "Project not found",
+      title: locale === "id" ? "Artikel Tidak Ditemukan - Kevin Iansyah" : "Article Not Found - Kevin Iansyah",
+      description: locale === "id" ? "Artikel tidak ditemukan" : "Article not found",
     };
   }
 
   return {
-    title: `${project.title} - Kevin Iansyah`,
-    description: project.description,
-    keywords: project.skills.map((skill) => skill.name),
+    title: `${article.title} - Kevin Iansyah`,
+    description: article.description,
+    keywords: article.tags.map((tag) => tag.name),
     authors: [{ name: "Kevin Iansyah" }],
     openGraph: {
-      title: `${project.title} - Kevin Iansyah`,
-      description: project.description,
-      type: "website",
+      title: `${article.title} - Kevin Iansyah`,
+      description: article.description,
+      type: "article",
       locale: locale === "id" ? "id_ID" : "en_US",
-      url: `https://keviniansyah.site/projects/${project.slug}`,
+      url: `https://keviniansyah.site/articles/${article.slug}`,
       siteName: "Portofolio Kevin Iansyah",
       images: [
         {
-          url: getFullImageUrl(project.thumbnail_url),
+          url: getFullImageUrl(article.thumbnail_url),
           width: 1200,
           height: 630,
-          alt: project.title,
+          alt: article.title,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${project.title} - Kevin Iansyah`,
-      description: project.description,
-      images: [getFullImageUrl(project.thumbnail_url)],
+      title: `${article.title} - Kevin Iansyah`,
+      description: article.description,
+      images: [getFullImageUrl(article.thumbnail_url)],
     },
     alternates: {
-      canonical: `https://keviniansyah.site/projects/${project.slug}`,
+      canonical: `https://keviniansyah.site/articles/${article.slug}`,
     },
     robots: {
       index: true,
@@ -60,21 +60,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-async function getInitialProject(slug: string) {
+async function getInitialArticle(slug: string) {
   try {
-    const project = await apiServer.get<Project>(`/api/projects/${slug}`);
-    
-    return { project, error: null };
+    const article = await apiServer.get<Article>(`/api/articles/${slug}`);
+
+    return { article, error: null };
   } catch (error) {
-    console.error("Failed to fetch project:", error);
+    console.error("Failed to fetch article:", error);
 
     if (error instanceof ApiError) {
       if (error.status === 404) {
-        return { project: null, error: null };
+        return { article: null, error: null };
       }
 
       return {
-        project: null,
+        article: null,
         error: {
           message: error.message,
           status: error.status,
@@ -84,7 +84,7 @@ async function getInitialProject(slug: string) {
     }
 
     return {
-      project: null,
+      article: null,
       error: {
         message: "An unexpected error occurred",
         status: 500,
@@ -95,15 +95,15 @@ async function getInitialProject(slug: string) {
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { project, error } = await getInitialProject(slug);
+  const { article, error } = await getInitialArticle(slug);
 
-  if (!project && !error) {
+  if (!article && !error) {
     notFound();
   }
 
   return (
     <ErrorWrapper error={error}>
-      <Detail project={project} />
+      <Detail article={article} />
     </ErrorWrapper>
   );
 }

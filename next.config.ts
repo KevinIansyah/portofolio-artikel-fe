@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "api-portofolio.keviniansyah.site",
-        port: "",
         pathname: "/storage/**",
       },
     ],

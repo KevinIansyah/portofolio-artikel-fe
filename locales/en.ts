@@ -1,4 +1,6 @@
-export const en = {
+import type { TranslationKey } from "./index";
+
+export const en: Record<TranslationKey, string> = {
   "sidebar.nav.main.dashboard": "Dashboard",
   "sidebar.nav.main.content": "Content",
   "sidebar.nav.main.article": "Article",
@@ -9,11 +11,34 @@ export const en = {
 
   // Navbar
   "nav.home": "Home",
-  "nav.about": "About",
-  "nav.services": "Services",
+  "nav.technology": "Technology",
+  "nav.project": "Project",
   "nav.contact": "Contact",
-  "nav.portfolio": "Portfolio",
-  "nav.blog": "Blog",
+  "nav.article": "Article",
+
+  // Footer
+  "footer.description": "Fullstack Web Developer with experience in modern technologies such as Vue, React, Tailwind CSS, Laravel, and NestJS.",
+
+  "footer.articleSubscribe": "Subscribe to Article",
+  "footer.articleSubscribeDescription": "Get the latest news and updates about web development directly to your email.",
+
+  "form.footer.placeholder.email": "Enter your email, for example: email@example.",
+
+  "footer.navigation": "Navigation",
+  "footer.navigation.home": "Home",
+  "footer.navigation.technology": "Technology",
+  "footer.navigation.project": "Project",
+  "footer.navigation.contact": "Contact",
+  "footer.navigation.article": "Article",
+
+  "footer.socialMedia": "Social Media",
+
+  "footer.explore": "Explore",
+  "footer.explore.allProject": "All Projects",
+  "footer.explore.allArticle": "All Articles",
+  "footer.explore.publicApi": "Public API",
+
+  "footer.copyright": "© 2025 Kevin Iansyah. All rights reserved.",
 
   // Buttons
   "btn.login": "Login",
@@ -22,17 +47,15 @@ export const en = {
   "btn.cancel": "Cancel",
   "btn.save": "Save",
 
+  // Sonner
+  "sonner.description.languageChange": "Language changed. Redirecting to homepage...",
+
   // Common
   "common.welcome": "Welcome",
   "common.loading": "Loading...",
   "common.error": "An error occurred",
   "common.success": "Success",
   "common.search": "Search",
-
-  // Footer
-  "footer.copyright": "© 2024 All rights reserved",
-  "footer.privacy": "Privacy Policy",
-  "footer.terms": "Terms & Conditions",
 
   // Datatable
   "datatable.add": "Add",
@@ -50,7 +73,90 @@ export const en = {
   "datatable.previous": "Previous",
   "datatable.next": "Next",
 
-  // Heading
+  // Home Hero
+  "heading.home.hero.title": "Hii, I'm",
+  "heading.home.hero.description": "Fullstack Web Developer with experience in modern technologies such as Vue, React, Tailwind CSS, Laravel, and NestJS",
+
+  "button.home.hero.showProjects": "Show Projects",
+  "button.home.hero.downloadResume": "Download Resume",
+
+  "home.hero.builtWith": "Built with: ",
+
+  // Home Skill
+  "heading.home.skill.title": "Technologies Used",
+  "heading.home.skill.subtitle": "Technologies",
+  "heading.home.skill.description": "Some of the technologies I use in web application development",
+
+  "home.skill.empty": "No technology found",
+
+  // Home Project
+  "heading.home.project.title": "Latest Case Studies",
+  "heading.home.project.subtitle": "My Projects",
+  "heading.home.project.description": "Some of the projects I have worked on, starting from landing pages, interactive web applications to business information management and process systems",
+
+  "button.home.project.viewAll": "View All Projects",
+
+  "home.project.empty": "No projects found",
+
+  // Home Article
+  "heading.home.article.title": "Articles & Insights",
+  "heading.home.article.subtitle": "Articles",
+  "heading.home.article.description": "Share knowledge, experiences, and insights about technology, web development, and industry trends.",
+
+  "button.home.article.viewAll": "View All Articles",
+
+  "home.article.empty": "No articles found",
+  "home.article.seen": "seen",
+  "home.article.minute": "minute",
+
+  // Home Contact
+  "heading.home.contact.title": "Contact Me",
+  "heading.home.contact.subtitle": "Contact",
+  "heading.home.contact.description":
+    "If you have any questions, want to work together, or just want to say hello, don't hesitate to contact me using the form below or the information provided below",
+
+  "home.contact.leaveMessage": "Leave a message",
+  "home.contact.contactInfo": "Contact Information",
+  "home.contact.address": "Address",
+  "home.contact.phoneNumber": "Phone Number",
+
+  "form.home.contact.placeholder.name": "Enter your name, e.g. John Doe",
+  "form.home.contact.placeholder.email": "Enter your email, e.g. email@example.",
+  "form.home.contact.placeholder.phone": "Enter your contact number, e.g. 62xx-xxxx-xxxx",
+  "form.home.contact.placeholder.message": "Enter your message",
+
+  "form.home.contact.button.submit": "Send",
+  "form.home.contact.button.submit.process": "Sending...",
+
+  // Home All Projects
+  "heading.home.project.all.title": "All Projects",
+  "heading.home.project.all.subtitle": "Projects",
+  "heading.home.project.all.description": "All projects I have worked on, starting from landing pages, interactive web applications to business information management and process systems",
+
+  // Home Detail Project
+  "home.detail.project.technology": "Technologies",
+
+  "button.home.detail.project.seeDemo": "See Demo",
+  "button.home.detail.project.seeCode": "See Code",
+
+  // Home Detail Article
+  "home.detail.article.tag": "Tags",
+
+  // Login
+  "heading.login.title": "Login to your account",
+  "heading.login.description": "Enter your email below to login to your account",
+
+  "form.login.label.password": "Password",
+
+  "login.show_password": "Show password",
+  "login.hide_password": "Hide password",
+
+  "form.login.button.submit": "Sign In",
+  "form.login.button.submin.process": "Signing In...",
+
+  "login.signup": "Don't have an account? Sign up now!",
+
+  // Dashboard
   "heading.dashboard.title": "Welcome",
   "heading.dashboard.description": "View a summary of your latest information and activities",
 

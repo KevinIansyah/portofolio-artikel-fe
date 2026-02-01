@@ -2,6 +2,8 @@
 
 import { Facebook, Github, Instagram, Linkedin, Mail, MapPin, Phone, SendHorizonal, Twitter } from "lucide-react";
 
+import { useLanguage } from "@/hooks/use-language";
+
 import Heading from "@/components/home/heading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,15 +55,12 @@ const socials: SocialItem[] = [
 ];
 
 export default function ContactSection({ id }: ContactSectionProps) {
+  const { t } = useLanguage();
+
   return (
     <section id={id} className="py-16 mx-auto px-4 max-w-6xl">
       <div className="space-y-14">
-        <Heading
-          title="Hubungi Saya"
-          subtitle="Kontak"
-          description="Jika Anda memiliki pertanyaan, ingin bekerja sama, atau sekadar menyapa, jangan ragu untuk menghubungi saya melalui formulir atau informasi kontak yang tersedia di bawah ini."
-          delay={200}
-        />
+        <Heading title={t("heading.home.contact.title")} subtitle={t("heading.home.contact.subtitle")} description={t("heading.home.contact.description")} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
           {/* Google Maps */}
@@ -81,15 +80,15 @@ export default function ContactSection({ id }: ContactSectionProps) {
             <div className="flex flex-col md:flex-row gap-8 lg:gap-6 h-full">
               {/* Form Section */}
               <div className="flex-1 space-y-4 lg:space-y-6">
-                <h3 className="text-lg font-semibold">Tinggalkan Pesan</h3>
+                <h3 className="text-lg font-semibold">{t("home.contact.leaveMessage")}</h3>
 
                 <div className="space-y-4">
-                  <Input className="text-sm" type="text" placeholder="Nama Anda" />
-                  <Input className="text-sm" type="email" placeholder="Email Anda" />
-                  <Input className="text-sm" type="text" placeholder="Nomor Telepon" />
-                  <Textarea className="text-sm min-h-22.5 lg:min-h-21" placeholder="Pesan Anda" />
+                  <Input className="text-sm" name="name" type="text" placeholder={t("form.home.contact.placeholder.name")} />
+                  <Input className="text-sm" name="email" type="email" placeholder={t("form.home.contact.placeholder.email")} />
+                  <Input className="text-sm" name="phone" type="text" placeholder={t("form.home.contact.placeholder.phone")} />
+                  <Textarea className="text-sm min-h-22.5 lg:min-h-21" name="message" placeholder={t("form.home.contact.placeholder.message")} />
                   <Button className="w-full flex items-center justify-center gap-2 shadow-none" disabled>
-                    Kirim
+                    {t("form.home.contact.button.submit")}
                     <SendHorizonal />
                   </Button>
                 </div>
@@ -99,14 +98,14 @@ export default function ContactSection({ id }: ContactSectionProps) {
 
               {/* Contact Info Section */}
               <div className="flex-1 space-y-4 lg:space-y-6">
-                <h3 className="text-lg font-semibold">Informasi Kontak</h3>
+                <h3 className="text-lg font-semibold">{t("home.contact.contactInfo")}</h3>
 
                 <div className="space-y-4">
                   {/* Address */}
                   <div className="flex items-start gap-2">
                     <MapPin className="w-4.5 h-4.5 text-muted-foreground shrink-0" />
                     <div className="space-y-2">
-                      <h6 className="text-base font-semibold">Alamat</h6>
+                      <h6 className="text-base font-semibold">{t("home.contact.address")}</h6>
                       <p className="text-sm text-muted-foreground">Jl. Gn. Anyar Jaya Selatan No.25, Gn. Anyar, Kec. Gn. Anyar, Surabaya, Jawa Timur 60294</p>
                     </div>
                   </div>
@@ -115,7 +114,7 @@ export default function ContactSection({ id }: ContactSectionProps) {
                   <div className="flex items-start gap-2">
                     <Phone className="w-4.5 h-4.5 text-muted-foreground shrink-0" />
                     <div className="space-y-2">
-                      <h6 className="text-base font-semibold">Nomor Ponsel</h6>
+                      <h6 className="text-base font-semibold">{t("home.contact.phoneNumber")}</h6>
                       <p className="text-sm text-muted-foreground">+62 858-1578-7906</p>
                     </div>
                   </div>

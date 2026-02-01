@@ -6,6 +6,8 @@ export interface Article {
   id: number;
   title: string;
   slug: string;
+  slug_id: string;
+  slug_en: string;
   description: string;
   content: string;
   thumbnail_url: string;

@@ -1,25 +1,41 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Menu } from "lucide-react";
 import Link from "next/link";
+
+import { useLanguage } from "@/hooks/use-language";
 
 import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import ModeToggle from "../mode-toggle";
-// import LanguageToggle from "../language-toggle";
+import LanguageToggle from "../language-toggle";
 
-const mainNavItems = [
-  { title: "Beranda", href: "#home" },
-  { title: "Teknologi", href: "#technology" },
-  { title: "Proyek", href: "#projects" },
-  // { title: "Artikel", href: "#articles" },
-  { title: "Kontak", href: "#contact" },
-];
+interface NavItem {
+  title: string;
+  href: string;
+}
 
 export default function AppHeader() {
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const mainNavItems: NavItem[] = [
+    { title: t("nav.home"), href: "/" },
+    { title: t("nav.technology"), href: "#technology" },
+    { title: t("nav.project"), href: "#projects" },
+    { title: t("nav.article"), href: "#articles" },
+    { title: t("nav.contact"), href: "#contact" },
+  ];
 
   return (
     <div className="sticky top-0 z-50 w-full bg-transparent backdrop-blur-sm transition-colors duration-300">
@@ -29,25 +45,24 @@ export default function AppHeader() {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="mr-2 h-9 w-9 text-foreground">
-                  <Menu className="size-6" />
+                  <Menu className="size-5 lg:size-4.5" />
                   <span className="sr-only">Tombol buka navigasi</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="top" className="w-full h-auto bg-transparent p-6 backdrop-blur-md shadow-none">
+              <SheetContent side="top" className="w-full min-h-screen bg-transparent p-6 backdrop-blur-md shadow-none border-0">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <SheetDescription className="sr-only">Daftar tautan navigasi utama pada situs web.</SheetDescription>
-                <SheetHeader className="flex justify-center items-center">
+                {/* <SheetHeader className="flex justify-center items-center">
                   <span className="text-lg font-bold">KI</span>
-                </SheetHeader>
-                <div className="flex h-full flex-1 flex-col justify-between space-y-4">
-                  <nav className="space-y-1">
-                    {mainNavItems.map((item) => (
-                      <Link key={item.title} href={item.href} className="flex items-center gap-2 rounded-lg py-3 text-sm text-white font-medium" onClick={() => setIsOpen(false)}>
-                        {item.title}
-                      </Link>
-                    ))}
-                  </nav>
-                </div>
+                </SheetHeader> */}
+
+                <nav className="mt-20 flex flex-col justify-between items-center space-y-16">
+                  {mainNavItems.map((item) => (
+                    <Link key={item.title} href={item.href} className="text-3xl text-white font-medium" onClick={() => setIsOpen(false)}>
+                      {item.title}
+                    </Link>
+                  ))}
+                </nav>
               </SheetContent>
             </Sheet>
           </div>
@@ -64,7 +79,7 @@ export default function AppHeader() {
                     <NavigationMenuItem key={index} className="relative flex h-full items-center">
                       <Link
                         href={item.href}
-                        className="flex items-center gap-x-2 px-3 py-2 text-sm text-foreground font-normal hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 rounded-md transition-all duration-300"
+                        className="flex items-center gap-x-2 px-3 py-2 text-foreground text-sm font-normal hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 rounded-md transition-all duration-300"
                       >
                         <span>{item.title}</span>
                       </Link>
@@ -75,7 +90,7 @@ export default function AppHeader() {
             </div>
 
             <div className="flex items-center gap-2">
-              {/* <LanguageToggle /> */}
+              <LanguageToggle />
               <ModeToggle />
             </div>
           </div>
