@@ -7,6 +7,7 @@ import { LanguageProvider } from "@/contexts/language-context";
 import { SWRProvider } from "@/contexts/swr-context";
 
 import { Toaster } from "sonner";
+import { PersonSchema, WebsiteSchema } from "@/components/seo-schema";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,8 @@ export default async function RootLayout({
   return (
     <html lang={language} suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <PersonSchema />
+        <WebsiteSchema />
         <Toaster position="top-right" richColors />
 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>

@@ -27,6 +27,21 @@ export default function Detail({ project }: DetailProps) {
   const unoptimized = process.env.NEXT_PUBLIC_IMAGE_UNOPTIMIZED === "true";
 
   useEffect(() => {
+    const tables = document.querySelectorAll(".prose table");
+    tables.forEach((table) => {
+      if (table.parentElement?.classList.contains("table-wrapper")) {
+        return;
+      }
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "table-wrapper overflow-x-auto";
+
+      table.parentNode?.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+    });
+  }, [project?.content]);
+
+  useEffect(() => {
     if (language === initialLanguage.current || !project) {
       return;
     }
@@ -138,23 +153,7 @@ export default function Detail({ project }: DetailProps) {
       {/* Content Section */}
       {project.content && (
         <section className="max-w-5xl mx-auto px-4 pb-16">
-          <div
-            className="prose dark:prose-invert max-w-none
-      [&>p]:mb-4 [&>p]:leading-7
-      [&>ul]:my-4
-      [&>ul>li]:my-0
-      [&>ul>li>p]:my-0 [&>ul>li>p]:leading-relaxed
-      [&>ol]:my-4
-      [&>ol>li]:my-0
-      [&>ol>li>p]:my-0 [&>ol>li>p]:leading-relaxed
-
-      [&>h1]:mt-10 [&>h1]:mb-6 [&>h1]:text-3xl [&>h1]:text-white
-      [&>h2]:mt-8  [&>h2]:mb-4 [&>h2]:text-2xl [&>h2]:text-white
-      [&>h3]:mt-6  [&>h3]:mb-3 [&>h3]:text-xl  [&>h3]:text-white
-
-      [&>strong]:font-semibold"
-            dangerouslySetInnerHTML={{ __html: project.content }}
-          />
+          <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: project.content }} />
         </section>
       )}
     </div>

@@ -53,7 +53,6 @@ export default function AppFooter() {
 
   const subscribeNewsletter = () => {
     if (email) {
-      console.log("Subscribing email:", email);
       setEmail("");
     }
   };
@@ -69,10 +68,11 @@ export default function AppFooter() {
               <p className="text-muted-foreground text-sm mb-6 max-w-xs">{t("footer.description")}</p>
 
               <div>
-                <h4 className="text-sm font-medium mb-4">Berlangganan Artikel</h4>
+                <h4 className="text-sm font-medium mb-4">{t("footer.articleSubscribe")}</h4>
                 <div className="flex">
                   <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder={t("form.footer.placeholder.email")} className="text-sm flex-1" />
                   <Button onClick={subscribeNewsletter} className="ml-2 shadow-none" disabled>
+                    <span className="sr-only">Send</span>
                     <ArrowRight />
                   </Button>
                 </div>

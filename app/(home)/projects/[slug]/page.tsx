@@ -9,12 +9,13 @@ import { ApiError } from "@/lib/types/api";
 import Detail from "./_components/detail";
 import { ErrorWrapper } from "@/components/error-wrapper";
 import { getServerLocale } from "@/lib/server-utils";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const locale = await getServerLocale();
 
-  const { project } = await getInitialProject(slug);
+  const { project } = await getInitialProject(slug, locale);
 
   if (!project) {
     return {
@@ -60,10 +61,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-async function getInitialProject(slug: string) {
+async function getInitialProject(slug: string, locale: string) {
   try {
     const project = await apiServer.get<Project>(`/api/projects/${slug}`);
-    
+
     return { project, error: null };
   } catch (error) {
     console.error("Failed to fetch project:", error);
@@ -86,7 +87,7 @@ async function getInitialProject(slug: string) {
     return {
       project: null,
       error: {
-        message: "An unexpected error occurred",
+        message: locale === "id" ? "Terjadi kesalahan yang tidak terduga" : "An unexpected error occurred",
         status: 500,
       },
     };
@@ -95,15 +96,29 @@ async function getInitialProject(slug: string) {
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { project, error } = await getInitialProject(slug);
+  const locale = await getServerLocale();
+  const { project, error } = await getInitialProject(slug, locale);
 
   if (!project && !error) {
     notFound();
   }
 
   return (
-    <ErrorWrapper error={error}>
-      <Detail project={project} />
-    </ErrorWrapper>
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://keviniansyah.site" },
+          { name: "Projects", url: "https://keviniansyah.site/projects" },
+          {
+            name: project?.title ?? "Project",
+            url: `https://keviniansyah.site/projects/${project?.slug ?? slug}`,
+          },
+        ]}
+      />
+
+      <ErrorWrapper error={error}>
+        <Detail project={project} />
+      </ErrorWrapper>
+    </>
   );
 }

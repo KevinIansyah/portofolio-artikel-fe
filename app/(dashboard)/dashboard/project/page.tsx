@@ -1,9 +1,14 @@
-import { apiServer } from "@/lib/api/server";
+import { Metadata } from "next";
 
+import { apiServer } from "@/lib/api/server";
 import { Paginator } from "@/lib/types/paginator";
 import { Project } from "@/lib/types/project";
 
 import Projects from "./_components/project";
+
+export const metadata: Metadata = {
+  title: "Projects - Kevin Iansyah",
+};
 
 async function getInitialProjects(): Promise<Paginator<Project> | null> {
   try {

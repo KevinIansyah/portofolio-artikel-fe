@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { Category } from "@/lib/types/category";
@@ -6,6 +7,10 @@ import { ArticleEditData } from "@/lib/types/article";
 import { apiServer } from "@/lib/api/server";
 
 import Edit from "../_components/edit";
+
+export const metadata: Metadata = {
+  title: "Edit Article - Kevin Iansyah",
+};
 
 async function getFormData(id: string) {
   try {

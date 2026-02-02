@@ -1,8 +1,14 @@
+import { Metadata } from "next";
+
 import { apiServer } from "@/lib/api/server";
 import { Skill } from "@/lib/types/skill";
 import { Paginator } from "@/lib/types/paginator";
 
 import Skills from "./_components/skill";
+
+export const metadata: Metadata = {
+  title: "Skill - Kevin Iansyah",
+};
 
 async function getInitialSkills(): Promise<Paginator<Skill> | null> {
   try {

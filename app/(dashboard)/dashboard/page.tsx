@@ -1,12 +1,14 @@
+import { redirect } from "next/navigation";
 import { Metadata } from "next";
+
 import { apiServer } from "@/lib/api/server";
 import { User } from "@/lib/types/user";
+
 import Dashboard from "./_components/dashboard";
-import { redirect } from "next/navigation";
+
 
 export const metadata: Metadata = {
   title: "Dashboard - Kevin Iansyah",
-  description: "Dashboard overview page",
 };
 
 async function getInitialUser(): Promise<User | null> {

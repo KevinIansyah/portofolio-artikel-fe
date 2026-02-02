@@ -1,8 +1,15 @@
+import { Metadata } from "next";
+
 import { apiServer } from "@/lib/api/server";
 import { Category } from "@/lib/types/category";
 import { Paginator } from "@/lib/types/paginator";
 
 import Categories from "./_components/category";
+
+
+export const metadata: Metadata = {
+  title: "Category - Kevin Iansyah",
+};
 
 async function getInitialCategories(): Promise<Paginator<Category> | null> {
   try {

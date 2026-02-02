@@ -13,31 +13,40 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await getServerLocale();
   const isEN = locale === "en";
 
-  const title = isEN ? "Articles – Web Development, Backend & Machine Learning" : "Artikel – Web Development, Backend & Machine Learning";
-
-  const description = isEN
-    ? "A collection of articles about web development, backend, APIs, machine learning, and thoughts on building software."
-    : "Kumpulan artikel seputar web development, backend, API, machine learning, serta berbagai pemikiran dalam membangun software.";
-
   return {
-    title: `${title} | Kevin Iansyah`,
-    description,
-    keywords: ["Web Development", "Backend", "API", "React", "Next.js", "Laravel", "Machine Learning", "AI", "Data Science", "Programming"],
+    title: isEN ? "Articles on IT, Web & Software Engineering | Kevin Iansyah" : "Artikel IT, Web & Software Engineering | Kevin Iansyah",
+
+    description: isEN
+      ? "Articles and insights on the IT world, covering web development, backend and frontend engineering, APIs, machine learning, and building modern software."
+      : "Artikel dan insight seputar dunia IT yang membahas web development, backend dan frontend engineering, API, machine learning, serta pengembangan software modern.",
+
+    keywords: isEN
+      ? ["Kevin Iansyah", "IT Articles", "Web Development", "Backend", "Frontend", "API", "Software Engineering", "Machine Learning", "AI", "Programming", "React", "Next.js", "Laravel"]
+      : ["Kevin Iansyah", "Artikel IT", "Web Development", "Backend", "Frontend", "API", "Software Engineering", "Machine Learning", "AI", "Pemrograman", "React", "Next.js", "Laravel"],
+
     openGraph: {
-      title,
-      description,
+      title: isEN ? "Articles on IT, Web & Software Engineering | Kevin Iansyah" : "Artikel IT, Web & Software Engineering | Kevin Iansyah",
+      description: isEN
+        ? "Read articles and technical insights on web development, software engineering, APIs, and machine learning."
+        : "Baca artikel dan insight teknis seputar web development, software engineering, API, dan machine learning.",
       type: "website",
       locale: isEN ? "en_US" : "id_ID",
+      url: "https://keviniansyah.site/articles",
       siteName: isEN ? "Kevin Iansyah Articles" : "Artikel Kevin Iansyah",
     },
+
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: isEN ? "Articles on IT, Web & Software Engineering | Kevin Iansyah" : "Artikel IT, Web & Software Engineering | Kevin Iansyah",
+      description: isEN
+        ? "Technical articles and insights on web development, software engineering, and machine learning."
+        : "Artikel dan insight teknis seputar web development, software engineering, dan machine learning.",
     },
+
     alternates: {
-      canonical: `https://keviniansyah.site/articles`,
+      canonical: "https://keviniansyah.site/articles",
     },
+
     robots: {
       index: true,
       follow: true,

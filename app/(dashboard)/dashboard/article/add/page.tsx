@@ -1,8 +1,14 @@
+import { Metadata } from "next";
+
 import { apiServer } from "@/lib/api/server";
 import { Category } from "@/lib/types/category";
 import { Tag } from "@/lib/types/tag";
 
 import Add from "./_components/add";
+
+export const metadata: Metadata = {
+  title: "Add Article - Kevin Iansyah",
+};
 
 async function getFormData() {
   try {

@@ -11,6 +11,12 @@ import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
 import { TextStyle } from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
+import { Table } from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableHeader from "@tiptap/extension-table-header";
+import TableCell from "@tiptap/extension-table-cell";
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import { common, createLowlight } from "lowlight";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -46,7 +52,12 @@ import {
   Palette,
   MoreHorizontal,
   Pilcrow,
+  Table as TableIcon,
+  CodeSquare, // Icon untuk code block
 } from "lucide-react";
+
+// Setup lowlight untuk syntax highlighting
+const lowlight = createLowlight(common);
 
 interface TiptapProps {
   content?: string;
@@ -63,6 +74,11 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
       StarterKit.configure({
         link: false,
         underline: false,
+        codeBlock: false, // Disable default code block
+      }),
+      CodeBlockLowlight.configure({
+        lowlight,
+        defaultLanguage: "javascript",
       }),
       Image.configure({
         inline: true,
@@ -85,6 +101,12 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
       Superscript,
       TextStyle,
       Color,
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     content: content || "<p>Hello World! 🌎️</p>",
     immediatelyRender: false,
@@ -226,8 +248,12 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
           <Strikethrough className="h-4 w-4" />
         </Button>
 
-        <Button type="button" variant={editor.isActive("code") ? "default" : "ghost"} size="sm" onClick={() => editor.chain().focus().toggleCode().run()} title="Code">
+        <Button type="button" variant={editor.isActive("code") ? "default" : "ghost"} size="sm" onClick={() => editor.chain().focus().toggleCode().run()} title="Inline Code">
           <Code className="h-4 w-4" />
+        </Button>
+
+        <Button type="button" variant={editor.isActive("codeBlock") ? "default" : "ghost"} size="sm" onClick={() => editor.chain().focus().toggleCodeBlock().run()} title="Code Block">
+          <CodeSquare className="h-4 w-4" />
         </Button>
 
         <Button type="button" variant={editor.isActive("underline") ? "default" : "ghost"} size="sm" onClick={() => editor.chain().focus().toggleUnderline().run()} title="Underline">
@@ -239,6 +265,9 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
         </Button>
 
         <Separator orientation="vertical" className="min-h-8" />
+
+        {/* ... rest of your toolbar buttons ... */}
+        {/* Link, Color, Alignment, Lists, Table, Image, etc. - tetap sama seperti sebelumnya */}
 
         {/* Link */}
         <Popover open={isLinkOpen} onOpenChange={setIsLinkOpen}>
@@ -340,6 +369,54 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
         <Button type="button" variant={editor.isActive("blockquote") ? "default" : "ghost"} size="sm" onClick={() => editor.chain().focus().toggleBlockquote().run()} title="Quote">
           <Quote className="h-4 w-4" />
         </Button>
+
+        <Separator orientation="vertical" className="min-h-8" />
+
+        {/* Table */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button type="button" variant={editor.isActive("table") ? "default" : "ghost"} size="sm" title="Table">
+              <TableIcon className="h-4 w-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-56 p-2">
+            <div className="flex flex-col gap-1">
+              <Button type="button" variant="ghost" size="sm" className="justify-start" onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}>
+                Insert Table (3x3)
+              </Button>
+              <Separator className="my-1" />
+              <Button type="button" variant="ghost" size="sm" className="justify-start" onClick={() => editor.chain().focus().addColumnBefore().run()} disabled={!editor.can().addColumnBefore()}>
+                Add Column Before
+              </Button>
+              <Button type="button" variant="ghost" size="sm" className="justify-start" onClick={() => editor.chain().focus().addColumnAfter().run()} disabled={!editor.can().addColumnAfter()}>
+                Add Column After
+              </Button>
+              <Button type="button" variant="ghost" size="sm" className="justify-start" onClick={() => editor.chain().focus().deleteColumn().run()} disabled={!editor.can().deleteColumn()}>
+                Delete Column
+              </Button>
+              <Separator className="my-1" />
+              <Button type="button" variant="ghost" size="sm" className="justify-start" onClick={() => editor.chain().focus().addRowBefore().run()} disabled={!editor.can().addRowBefore()}>
+                Add Row Before
+              </Button>
+              <Button type="button" variant="ghost" size="sm" className="justify-start" onClick={() => editor.chain().focus().addRowAfter().run()} disabled={!editor.can().addRowAfter()}>
+                Add Row After
+              </Button>
+              <Button type="button" variant="ghost" size="sm" className="justify-start" onClick={() => editor.chain().focus().deleteRow().run()} disabled={!editor.can().deleteRow()}>
+                Delete Row
+              </Button>
+              <Separator className="my-1" />
+              <Button type="button" variant="ghost" size="sm" className="justify-start" onClick={() => editor.chain().focus().deleteTable().run()} disabled={!editor.can().deleteTable()}>
+                Delete Table
+              </Button>
+              <Button type="button" variant="ghost" size="sm" className="justify-start" onClick={() => editor.chain().focus().mergeCells().run()} disabled={!editor.can().mergeCells()}>
+                Merge Cells
+              </Button>
+              <Button type="button" variant="ghost" size="sm" className="justify-start" onClick={() => editor.chain().focus().splitCell().run()} disabled={!editor.can().splitCell()}>
+                Split Cell
+              </Button>
+            </div>
+          </PopoverContent>
+        </Popover>
 
         <Separator orientation="vertical" className="min-h-8" />
 

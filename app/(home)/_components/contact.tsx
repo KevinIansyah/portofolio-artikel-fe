@@ -103,27 +103,27 @@ export default function ContactSection({ id }: ContactSectionProps) {
                 <div className="space-y-4">
                   {/* Address */}
                   <div className="flex items-start gap-2">
-                    <MapPin className="w-4.5 h-4.5 text-muted-foreground shrink-0" />
+                    <MapPin className="size-4.5 text-muted-foreground shrink-0 mt-0.5" />
                     <div className="space-y-2">
-                      <h6 className="text-base font-semibold">{t("home.contact.address")}</h6>
+                      <p className="text-base font-semibold">{t("home.contact.address")}</p>
                       <p className="text-sm text-muted-foreground">Jl. Gn. Anyar Jaya Selatan No.25, Gn. Anyar, Kec. Gn. Anyar, Surabaya, Jawa Timur 60294</p>
                     </div>
                   </div>
 
                   {/* Phone */}
                   <div className="flex items-start gap-2">
-                    <Phone className="w-4.5 h-4.5 text-muted-foreground shrink-0" />
+                    <Phone className="size-4.5 text-muted-foreground shrink-0 mt-0.5" />
                     <div className="space-y-2">
-                      <h6 className="text-base font-semibold">{t("home.contact.phoneNumber")}</h6>
+                      <p className="text-base font-semibold">{t("home.contact.phoneNumber")}</p>
                       <p className="text-sm text-muted-foreground">+62 858-1578-7906</p>
                     </div>
                   </div>
 
                   {/* Email */}
                   <div className="flex items-start gap-2">
-                    <Mail className="w-4.5 h-4.5 text-muted-foreground shrink-0" />
+                    <Mail className="size-4.5 text-muted-foreground shrink-0 mt-0.5" />
                     <div className="space-y-2">
-                      <h6 className="text-base font-semibold">Email</h6>
+                      <p className="text-base font-semibold">Email</p>
                       <p className="text-sm text-muted-foreground">keviniansyah04@gmail.com</p>
                     </div>
                   </div>

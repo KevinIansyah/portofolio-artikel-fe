@@ -1,12 +1,19 @@
+import { Metadata } from "next";
+
 import { apiServer } from "@/lib/api/server";
 import { Article } from "@/lib/types/article";
 import { Paginator } from "@/lib/types/paginator";
+
 import Articles from "./_components/article";
+
+export const metadata: Metadata = {
+  title: "Articles - Kevin Iansyah",
+};
 
 async function getInitialArticles(): Promise<Paginator<Article> | null> {
   try {
     const articles = await apiServer.get<Paginator<Article>>("/api/articles");
-  
+
     return articles;
   } catch (error) {
     console.error("Failed to fetch articles:", error);

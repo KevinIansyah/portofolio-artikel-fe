@@ -106,11 +106,6 @@ export default function EditForm({ project, categories, skills }: EditFormProps)
         formData.append("skills[]", skillId.toString());
       });
 
-      console.log("=== FormData Contents ===");
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
-
       await apiClient.postFormData<ProjectEditData>(`/api/projects/${project.id}`, formData);
 
       toast.success("Proyek berhasil diperbarui!", {

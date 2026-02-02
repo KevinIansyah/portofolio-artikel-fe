@@ -9,12 +9,12 @@ import { getServerLocale } from "@/lib/server-utils";
 
 import Detail from "./_components/detail";
 import { ErrorWrapper } from "@/components/error-wrapper";
+import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const locale = await getServerLocale();
-
-  const { article } = await getInitialArticle(slug);
+  const { article } = await getInitialArticle(slug, locale);
 
   if (!article) {
     return {
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-async function getInitialArticle(slug: string) {
+async function getInitialArticle(slug: string, locale: string) {
   try {
     const article = await apiServer.get<Article>(`/api/articles/${slug}`);
 
@@ -69,10 +69,6 @@ async function getInitialArticle(slug: string) {
     console.error("Failed to fetch article:", error);
 
     if (error instanceof ApiError) {
-      if (error.status === 404) {
-        return { article: null, error: null };
-      }
-
       return {
         article: null,
         error: {
@@ -86,7 +82,7 @@ async function getInitialArticle(slug: string) {
     return {
       article: null,
       error: {
-        message: "An unexpected error occurred",
+        message: locale === "id" ? "Terjadi kesalahan yang tidak terduga" : "An unexpected error occurred",
         status: 500,
       },
     };
@@ -95,15 +91,29 @@ async function getInitialArticle(slug: string) {
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { article, error } = await getInitialArticle(slug);
+  const locale = await getServerLocale();
+  const { article, error } = await getInitialArticle(slug, locale);
 
   if (!article && !error) {
     notFound();
   }
 
   return (
-    <ErrorWrapper error={error}>
-      <Detail article={article} />
-    </ErrorWrapper>
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://keviniansyah.site" },
+          { name: "Articles", url: "https://keviniansyah.site/articles" },
+          {
+            name: article?.title ?? "Article",
+            url: `https://keviniansyah.site/articles/${article?.slug ?? slug}`,
+          },
+        ]}
+      />
+
+      <ErrorWrapper error={error}>
+        <Detail article={article} />
+      </ErrorWrapper>
+    </>
   );
 }

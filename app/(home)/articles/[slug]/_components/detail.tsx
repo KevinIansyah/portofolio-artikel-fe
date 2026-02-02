@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Calendar, Clock, Eye, Tags } from "lucide-react";
+import hljs from "highlight.js";
 
 import { useLanguage } from "@/hooks/use-language";
 
@@ -23,6 +24,78 @@ export default function Detail({ article }: DetailProps) {
   const router = useRouter();
   const unoptimized = process.env.NEXT_PUBLIC_IMAGE_UNOPTIMIZED === "true";
   const initialLanguage = useRef(language);
+
+  useEffect(() => {
+    const tables = document.querySelectorAll(".prose table");
+    tables.forEach((table) => {
+      if (table.parentElement?.classList.contains("table-wrapper")) {
+        return;
+      }
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "table-wrapper overflow-x-auto";
+
+      table.parentNode?.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+    });
+
+    document.querySelectorAll(".prose pre").forEach((pre) => {
+      const code = pre.querySelector("code");
+
+      if (code) {
+        hljs.highlightElement(code as HTMLElement);
+      }
+
+      if (pre.querySelector(".copy-button")) return;
+
+      pre.classList.add("relative", "group");
+
+      const button = document.createElement("button");
+      button.className =
+        "copy-button absolute top-2 right-2 p-2 rounded bg-muted hover:bg-muted/80 " +
+        "opacity-0 group-hover:opacity-100 transition-opacity duration-200 " +
+        "flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground";
+      button.innerHTML = `
+        <svg class="copy-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+        </svg>
+        <span class="copy-text">Copy</span>
+      `;
+
+      button.addEventListener("click", async () => {
+        const code = pre.querySelector("code");
+        if (!code) return;
+
+        try {
+          await navigator.clipboard.writeText(code.textContent || "");
+
+          button.innerHTML = `
+            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span>Copied!</span>
+          `;
+          button.classList.add("text-green-500");
+
+          setTimeout(() => {
+            button.innerHTML = `
+              <svg class="copy-icon w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2 2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
+              <span class="copy-text">Copy</span>
+            `;
+            button.classList.remove("text-green-500");
+          }, 2000);
+        } catch (err) {
+          console.error("Failed to copy:", err);
+        }
+      });
+
+      pre.appendChild(button);
+    });
+  }, [article?.content]);
 
   useEffect(() => {
     if (language === initialLanguage.current || !article) {
@@ -121,23 +194,7 @@ export default function Detail({ article }: DetailProps) {
       {/* Content Section */}
       {article.content && (
         <section className="max-w-5xl mx-auto px-4 pb-16">
-          <div
-            className="prose dark:prose-invert max-w-none
-      [&>p]:mb-4 [&>p]:leading-7
-      [&>ul]:my-4
-      [&>ul>li]:my-0
-      [&>ul>li>p]:my-0 [&>ul>li>p]:leading-relaxed
-      [&>ol]:my-4
-      [&>ol>li]:my-0
-      [&>ol>li>p]:my-0 [&>ol>li>p]:leading-relaxed
-
-      [&>h1]:mt-10 [&>h1]:mb-6 [&>h1]:text-3xl [&>h1]:text-white
-      [&>h2]:mt-8  [&>h2]:mb-4 [&>h2]:text-2xl [&>h2]:text-white
-      [&>h3]:mt-6  [&>h3]:mb-3 [&>h3]:text-xl  [&>h3]:text-white
-
-      [&>strong]:font-semibold"
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
+          <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: article.content }} />
         </section>
       )}
     </div>

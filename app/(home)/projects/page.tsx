@@ -14,36 +14,41 @@ export async function generateMetadata(): Promise<Metadata> {
   const isEN = locale === "en";
 
   return {
-    title: isEN ? "Projects – Kevin Iansyah" : "Proyek – Kevin Iansyah",
+    title: isEN ? "Web & Software Engineering Projects | Kevin Iansyah" : "Proyek Web & Software Engineering | Kevin Iansyah",
 
     description: isEN
-      ? "A collection of projects I’ve built, ranging from web applications, dashboards, APIs, to experimental and personal works."
-      : "Kumpulan proyek yang pernah saya kerjakan, mulai dari aplikasi web, dashboard, API, hingga proyek eksperimen dan personal.",
+      ? "A curated collection of projects I’ve built in the IT world, including web applications, dashboards, APIs, and experimental or personal software projects."
+      : "Kumpulan proyek yang saya kerjakan di dunia IT, mencakup aplikasi web, dashboard, API, serta proyek software eksperimental dan personal.",
 
     keywords: isEN
-      ? ["Kevin Iansyah", "Projects", "Web Development", "Web Application", "Dashboard", "API", "React", "Next.js", "Laravel", "Portfolio"]
-      : ["Kevin Iansyah", "Proyek", "Web Development", "Aplikasi Web", "Dashboard", "API", "React", "Next.js", "Laravel", "Portofolio"],
+      ? ["Kevin Iansyah", "Projects", "IT Projects", "Web Development", "Web Application", "Dashboard", "API", "Software Engineering", "React", "Next.js", "Laravel", "Portfolio"]
+      : ["Kevin Iansyah", "Proyek", "Proyek IT", "Web Development", "Aplikasi Web", "Dashboard", "API", "Software Engineering", "React", "Next.js", "Laravel", "Portofolio"],
 
     openGraph: {
-      title: isEN ? "Projects – Kevin Iansyah" : "Proyek – Kevin Iansyah",
+      title: isEN ? "Web & Software Engineering Projects | Kevin Iansyah" : "Proyek Web & Software Engineering | Kevin Iansyah",
+
       description: isEN
-        ? "Explore projects I’ve worked on, including web apps, dashboards, APIs, and various experiments."
-        : "Jelajahi proyek yang pernah saya kerjakan, termasuk aplikasi web, dashboard, API, dan berbagai eksperimen.",
+        ? "Explore projects and case studies I’ve worked on, including web apps, dashboards, APIs, and software engineering experiments."
+        : "Jelajahi proyek dan studi kasus yang pernah saya kerjakan, meliputi aplikasi web, dashboard, API, dan eksperimen software engineering.",
       type: "website",
       locale: isEN ? "en_US" : "id_ID",
       url: "https://keviniansyah.site/projects",
       siteName: isEN ? "Kevin Iansyah Portfolio" : "Portofolio Kevin Iansyah",
     },
+
     twitter: {
       card: "summary_large_image",
-      title: isEN ? "Projects – Kevin Iansyah" : "Proyek – Kevin Iansyah",
+      title: isEN ? "Web & Software Engineering Projects | Kevin Iansyah" : "Proyek Web & Software Engineering | Kevin Iansyah",
+
       description: isEN
-        ? "A collection of projects I’ve built across web development and software engineering."
-        : "Kumpulan proyek yang saya kerjakan di bidang web development dan software engineering.",
+        ? "Selected projects and software solutions I’ve built across web development and the IT world."
+        : "Pilihan proyek dan solusi software yang saya bangun di bidang web development dan dunia IT.",
     },
+
     alternates: {
       canonical: "https://keviniansyah.site/projects",
     },
+
     robots: {
       index: true,
       follow: true,

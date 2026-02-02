@@ -228,7 +228,11 @@ body {
 }
 
 .tiptap p {
-  @apply my-2 text-sm text-[var(--color-muted-foreground)];
+  @apply my-2 text-sm text-muted-foreground;
+}
+
+.tiptap p strong {
+  @apply my-2 text-sm text-foreground;
 }
 
 .tiptap h1 {
@@ -236,11 +240,11 @@ body {
 }
 
 .tiptap h2 {
-  @apply text-2xl font-bold my-3;
+  @apply text-2xl font-bold my-3 text-foreground;
 }
 
 .tiptap h3 {
-  @apply text-xl font-bold my-2;
+  @apply text-xl font-bold my-2 text-foreground;
 }
 
 .tiptap ul,
@@ -300,12 +304,278 @@ body {
   @apply text-left;
 }
 
+.tiptap table {
+  @apply border-collapse w-full my-4 overflow-hidden;
+  table-layout: fixed;
+}
+
+.tiptap table td,
+.tiptap table th {
+  @apply border-2 border-border p-2 relative;
+  min-width: 1em;
+  vertical-align: top;
+  box-sizing: border-box;
+}
+
+.tiptap table th {
+  @apply font-bold text-left bg-muted;
+}
+
+.tiptap table .selectedCell:after {
+  @apply absolute inset-0 pointer-events-none;
+  z-index: 2;
+  content: "";
+  background: hsl(var(--primary) / 0.1);
+}
+
+.tiptap table .column-resize-handle {
+  @apply absolute top-0 bottom-0 w-1 bg-primary pointer-events-none;
+  right: -2px;
+}
+
+.tiptap hr {
+  @apply my-10 border-0 border-t border-border/50;
+}
+
+.tiptap pre {
+  @apply bg-muted rounded-lg p-4 my-4 overflow-x-auto;
+  font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+}
+
+.tiptap pre code {
+  @apply bg-transparent p-0 text-sm;
+  color: inherit;
+}
+
+.tiptap code {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm;
+}
+
+.tiptap .hljs-comment,
+.tiptap .hljs-quote {
+  @apply text-gray-400 italic;
+}
+
+.tiptap .hljs-keyword,
+.tiptap .hljs-selector-tag,
+.tiptap .hljs-addition {
+  @apply text-purple-400;
+}
+
+.tiptap .hljs-number,
+.tiptap .hljs-string,
+.tiptap .hljs-meta .hljs-string,
+.tiptap .hljs-literal,
+.tiptap .hljs-doctag,
+.tiptap .hljs-regexp {
+  @apply text-pink-400;
+}
+
+.tiptap .hljs-title,
+.tiptap .hljs-section,
+.tiptap .hljs-name,
+.tiptap .hljs-selector-id,
+.tiptap .hljs-selector-class {
+  color: #ff00ff;
+}
+
+.tiptap .hljs-attribute,
+.tiptap .hljs-attr,
+.tiptap .hljs-variable,
+.tiptap .hljs-template-variable,
+.tiptap .hljs-class .hljs-title,
+.tiptap .hljs-type {
+  @apply text-violet-300;
+}
+
+.tiptap .hljs-symbol,
+.tiptap .hljs-bullet,
+.tiptap .hljs-subst,
+.tiptap .hljs-meta,
+.tiptap .hljs-meta .hljs-keyword,
+.tiptap .hljs-selector-attr,
+.tiptap .hljs-selector-pseudo,
+.tiptap .hljs-link {
+  color: #ff69b4;
+}
+
+.tiptap .hljs-built_in,
+.tiptap .hljs-deletion {
+  @apply text-purple-300;
+}
+
 .prose p {
-  @apply text-muted-foreground;
+  @apply text-muted-foreground mb-4 leading-7;
 }
 
 .prose p strong {
   @apply text-foreground;
+}
+
+.prose h1 {
+  @apply mt-10 mb-6 text-3xl text-white;
+}
+
+.prose h2 {
+  @apply mt-8 mb-4 text-2xl text-white;
+}
+
+.prose h3 {
+  @apply mt-6 mb-3 text-xl text-white;
+}
+
+.prose a {
+  @apply text-primary underline underline-offset-4;
+}
+
+.prose strong {
+  @apply font-semibold;
+}
+
+.prose hr {
+  @apply my-12 border-t border-muted-foreground/50;
+}
+
+.prose ul,
+.prose ol {
+  @apply my-4;
+}
+
+.prose ul > li,
+.prose ol > li {
+  @apply my-0;
+}
+
+.prose ul > li > p,
+.prose ol > li > p {
+  @apply my-0 leading-relaxed;
+}
+
+.prose table {
+  @apply border-collapse w-full my-4 border border-border;
+}
+
+.prose table td {
+  @apply border border-border p-2 min-w-[25];
+}
+
+.prose table th {
+  @apply border border-border p-2 bg-muted font-semibold text-left;
+}
+
+.table-wrapper {
+  @apply overflow-x-auto my-4;
+}
+
+.table-wrapper table {
+  @apply my-0 w-full;
+  min-width: 600px;
+}
+
+@media (min-width: 768px) {
+  .table-wrapper table {
+    min-width: auto;
+  }
+}
+
+.prose pre {
+  @apply bg-muted rounded-lg p-4 my-4 overflow-x-auto;
+  font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-sm;
+  color: inherit;
+}
+
+.prose code {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.prose .hljs-comment,
+.prose .hljs-quote {
+  @apply text-gray-400 italic opacity-70;
+}
+
+.prose .hljs-keyword,
+.prose .hljs-selector-tag,
+.prose .hljs-addition {
+  @apply text-purple-400;
+}
+
+.prose .hljs-number,
+.prose .hljs-string,
+.prose .hljs-meta .hljs-string,
+.prose .hljs-literal,
+.prose .hljs-doctag,
+.prose .hljs-regexp {
+  @apply text-pink-400;
+}
+
+.prose .hljs-title,
+.prose .hljs-section,
+.prose .hljs-name,
+.prose .hljs-selector-id,
+.prose .hljs-selector-class {
+  color: #ff00ff;
+}
+
+.prose .hljs-attribute,
+.prose .hljs-attr,
+.prose .hljs-variable,
+.prose .hljs-template-variable,
+.prose .hljs-class .hljs-title,
+.prose .hljs-type {
+  @apply text-violet-300;
+}
+
+.prose .hljs-symbol,
+.prose .hljs-bullet,
+.prose .hljs-subst,
+.prose .hljs-meta,
+.prose .hljs-meta .hljs-keyword,
+.prose .hljs-selector-attr,
+.prose .hljs-selector-pseudo,
+.prose .hljs-link {
+  color: #ff69b4;
+}
+
+.prose .hljs-built_in,
+.prose .hljs-deletion {
+  @apply text-purple-300;
+}
+
+@media (max-width: 768px) {
+  .tiptap pre,
+  .prose pre {
+    @apply text-xs p-3;
+  }
+}
+
+.copy-button {
+  @apply absolute top-2 right-2 p-2 rounded bg-muted/50 backdrop-blur;
+  @apply opacity-0 transition-opacity duration-200;
+  @apply flex items-center gap-1.5 text-xs font-medium;
+  @apply border border-border/50;
+  z-index: 10;
+}
+
+.prose pre:hover .copy-button {
+  @apply opacity-100;
+}
+
+.copy-button:hover {
+  @apply bg-muted border-border;
+}
+
+.copy-button:active {
+  @apply scale-95;
+}
+
+@media (max-width: 768px) {
+  .copy-button {
+    @apply opacity-100;
+  }
 }
 
 [data-sonner-toast][data-type="warning"] {
