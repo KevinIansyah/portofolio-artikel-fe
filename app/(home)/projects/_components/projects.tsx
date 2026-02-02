@@ -111,6 +111,7 @@ export default function Projects({ initialData }: ProjectProps) {
               }}
             >
               <SelectTrigger className="w-30">
+                <span className="sr-only">Toggle Per Page</span>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -173,6 +174,7 @@ export default function Projects({ initialData }: ProjectProps) {
               }}
             >
               <SelectTrigger className="w-30">
+                <span className="sr-only">Toggle Per Page</span>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
