@@ -153,7 +153,7 @@ export default function Projects({ initialData }: ProjectProps) {
   return (
     <section className="pt-30 pb-16 mx-auto px-4 max-w-6xl">
       <div className="space-y-14">
-        <Heading title={t("heading.home.project.title")} subtitle={t("heading.home.project.subtitle")} description={t("heading.home.project.description")} />
+        <Heading as="h1" title={t("heading.home.project.title")} subtitle={t("heading.home.project.subtitle")} description={t("heading.home.project.description")} />
 
         <div className="space-y-4 lg:space-y-6">
           {/* Filter */}

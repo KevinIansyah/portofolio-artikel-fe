@@ -153,7 +153,7 @@ export default function Articles({ initialData }: ArticlesProps) {
   return (
     <section className="pt-30 pb-16 mx-auto px-4 max-w-6xl">
       <div className="space-y-14">
-        <Heading title={t("heading.home.article.title")} subtitle={t("heading.home.article.subtitle")} description={t("heading.home.article.description")}/>
+        <Heading as="h1" title={t("heading.home.article.title")} subtitle={t("heading.home.article.subtitle")} description={t("heading.home.article.description")} />
 
         <div className="space-y-4 lg:space-y-6">
           {/* Filter */}
