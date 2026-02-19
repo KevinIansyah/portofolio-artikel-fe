@@ -97,7 +97,7 @@ export default function getColumns(t: (key: TranslationKey) => string, language:
             {t("table.article.view")}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
-        );
+        ); 
       },
       cell: ({ row }) => {
         return <div className="text-center">{row.getValue("views")}</div>;

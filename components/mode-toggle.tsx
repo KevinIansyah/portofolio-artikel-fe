@@ -13,8 +13,8 @@ export default function ModeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
-          <CloudMoon className="size-5.5 lg:size-4.5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <SunMoon className="size-5.5 lg:size-4.5 absolute scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+          <CloudMoon className="size-4.5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+          <SunMoon className="size-4.5 absolute scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>

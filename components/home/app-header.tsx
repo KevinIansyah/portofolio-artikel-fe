@@ -45,7 +45,7 @@ export default function AppHeader() {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="mr-2 h-9 w-9 text-foreground">
-                  <Menu className="size-5 lg:size-4.5" />
+                  <Menu className="size-4.5" />
                   <span className="sr-only">Tombol buka navigasi</span>
                 </Button>
               </SheetTrigger>
