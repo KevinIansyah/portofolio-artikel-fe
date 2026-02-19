@@ -86,7 +86,7 @@ export default function ContactSection({ id }: ContactSectionProps) {
                   <Input className="text-sm" name="name" type="text" placeholder={t("form.home.contact.placeholder.name")} />
                   <Input className="text-sm" name="email" type="email" placeholder={t("form.home.contact.placeholder.email")} />
                   <Input className="text-sm" name="phone" type="text" placeholder={t("form.home.contact.placeholder.phone")} />
-                  <Textarea className="text-sm min-h-22.5 lg:min-h-21" name="message" placeholder={t("form.home.contact.placeholder.message")} />
+                  <Textarea className="text-sm min-h-25" name="message" placeholder={t("form.home.contact.placeholder.message")} />
                   <Button className="w-full flex items-center justify-center gap-2 shadow-none" disabled>
                     {t("form.home.contact.button.submit")}
                     <SendHorizonal />
@@ -100,36 +100,34 @@ export default function ContactSection({ id }: ContactSectionProps) {
               <div className="flex-1 space-y-4 lg:space-y-6">
                 <h3 className="text-lg font-semibold">{t("home.contact.contactInfo")}</h3>
 
-                <div className="space-y-4">
+                <div className="space-y-4 mb-8 md:mb-6">
                   {/* Address */}
-                  <div className="flex items-start gap-2">
+                  <div className="flex items-start gap-4">
                     <MapPin className="size-4.5 text-muted-foreground shrink-0 mt-0.5" />
-                    <div className="space-y-2">
-                      <p className="text-base font-semibold">{t("home.contact.address")}</p>
-                      <p className="text-sm text-muted-foreground">Jl. Gn. Anyar Jaya Selatan No.25, Gn. Anyar, Kec. Gn. Anyar, Surabaya, Jawa Timur 60294</p>
+                    <div className="space-y-1">
+                      <p className="md:text-sm font-semibold">{t("home.contact.address")}</p>
+                      <p className="md:text-sm text-muted-foreground">Jl. Gn. Anyar Jaya Selatan No.25, Gn. Anyar, Kec. Gn. Anyar, Surabaya, Jawa Timur 60294</p>
                     </div>
                   </div>
 
                   {/* Phone */}
-                  <div className="flex items-start gap-2">
+                  <div className="flex items-start gap-4">
                     <Phone className="size-4.5 text-muted-foreground shrink-0 mt-0.5" />
-                    <div className="space-y-2">
-                      <p className="text-base font-semibold">{t("home.contact.phoneNumber")}</p>
-                      <p className="text-sm text-muted-foreground">+62 858-1578-7906</p>
+                    <div className="space-y-1">
+                      <p className="md:text-sm font-semibold">{t("home.contact.phoneNumber")}</p>
+                      <p className="md:text-sm text-muted-foreground">+62 858-1578-7906</p>
                     </div>
                   </div>
 
                   {/* Email */}
-                  <div className="flex items-start gap-2">
+                  <div className="flex items-start gap-4">
                     <Mail className="size-4.5 text-muted-foreground shrink-0 mt-0.5" />
-                    <div className="space-y-2">
-                      <p className="text-base font-semibold">Email</p>
-                      <p className="text-sm text-muted-foreground">keviniansyah04@gmail.com</p>
+                    <div className="space-y-1">
+                      <p className="md:text-sm font-semibold">Email</p>
+                      <p className="md:text-sm text-muted-foreground">keviniansyah04@gmail.com</p>
                     </div>
                   </div>
                 </div>
-
-                <Separator className="hidden md:flex" />
 
                 {/* Social Media */}
                 <div className="flex gap-4 justify-center">

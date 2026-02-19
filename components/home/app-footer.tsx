@@ -65,10 +65,10 @@ export default function AppFooter() {
             {/* Brand & Newsletter */}
             <div className="lg:col-span-1 lg:w-[80%]">
               <h3 className="text-lg font-semibold mb-4">KI</h3>
-              <p className="text-muted-foreground text-sm mb-6 max-w-xs">{t("footer.description")}</p>
+              <p className="text-muted-foreground md:text-sm mb-6 max-w-xs">{t("footer.description")}</p>
 
               <div>
-                <h4 className="text-sm font-medium mb-4">{t("footer.articleSubscribe")}</h4>
+                <h4 className="md:text-sm font-medium mb-4">{t("footer.articleSubscribe")}</h4>
                 <div className="flex">
                   <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder={t("form.footer.placeholder.email")} className="text-sm flex-1" />
                   <Button onClick={subscribeNewsletter} className="ml-2 shadow-none" disabled>
@@ -76,17 +76,17 @@ export default function AppFooter() {
                     <ArrowRight />
                   </Button>
                 </div>
-                <p className="text-sm text-muted-foreground mt-4">{t("footer.articleSubscribeDescription")}</p>
+                <p className="md:text-sm text-muted-foreground mt-4">{t("footer.articleSubscribeDescription")}</p>
               </div>
             </div>
 
             {/* Navigation */}
             <div>
-              <h4 className="text-sm font-semibold mb-4">{t("footer.navigation")}</h4>
+              <h4 className="md:text-sm font-semibold mb-4">{t("footer.navigation")}</h4>
               <ul className="space-y-4">
                 {mainNavItems.map((item) => (
                   <li key={item.title}>
-                    <Link href={item.href} className="text-sm text-foreground hover:text-muted-foreground transition-colors">
+                    <Link href={item.href} className="md:text-sm text-foreground hover:text-muted-foreground transition-colors">
                       {item.title}
                     </Link>
                   </li>
@@ -96,11 +96,11 @@ export default function AppFooter() {
 
             {/* Social Media */}
             <div>
-              <h4 className="text-sm font-semibold mb-4">{t("footer.socialMedia")}</h4>
+              <h4 className="md:text-sm font-semibold mb-4">{t("footer.socialMedia")}</h4>
               <ul className="space-y-4">
                 {socials.map((item) => (
                   <li key={item.name}>
-                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-foreground hover:text-muted-foreground transition-colors">
+                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="md:text-sm text-foreground hover:text-muted-foreground transition-colors">
                       {item.name}
                     </a>
                   </li>
@@ -110,11 +110,11 @@ export default function AppFooter() {
 
             {/* General Links */}
             <div>
-              <h4 className="text-sm font-semibold mb-4">{t("footer.explore")}</h4>
+              <h4 className="md:text-sm font-semibold mb-4">{t("footer.explore")}</h4>
               <ul className="space-y-4">
                 {generalLinks.map((item) => (
                   <li key={item.title}>
-                    <Link href={item.href} className="text-sm text-foreground hover:text-muted-foreground transition-colors">
+                    <Link href={item.href} className="md:text-sm text-foreground hover:text-muted-foreground transition-colors">
                       {item.title}
                     </Link>
                   </li>

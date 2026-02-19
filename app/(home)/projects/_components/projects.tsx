@@ -17,7 +17,7 @@ import { apiClient } from "@/lib/api/client";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Heading from "@/components/home/heading";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -211,26 +211,29 @@ export default function Projects({ initialData }: ProjectProps) {
                   {/* Project Title & Category */}
                   <CardHeader>
                     <h3 className="font-semibold text-lg line-clamp-2">{project.title}</h3>
+
                     <div className="flex flex-wrap gap-2">
                       {project.categories.slice(0, 2).map((category) => (
-                        <Badge key={category.id}>{category.name}</Badge>
+                        <Badge key={category.id} className="text-sm md:text-xs">
+                          {category.name}
+                        </Badge>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {project.skills.slice(0, 3).map((skill) => (
+                        <Badge key={skill.id} variant="outline" className="text-sm md:text-xs">
+                          {skill.name}
+                        </Badge>
                       ))}
                     </div>
                   </CardHeader>
 
                   {/* Project Description */}
-                  <CardContent className="text-sm text-muted-foreground line-clamp-3">{project.description}</CardContent>
+                  <CardContent className="md:text-sm text-muted-foreground line-clamp-3 mb-0">{project.description}</CardContent>
 
                   {/* Project Tags & Button */}
-                  <CardFooter className="space-y-4 lg:space-y-6">
-                    <div className="flex flex-wrap gap-2">
-                      {project.skills.slice(0, 3).map((skill) => (
-                        <Badge key={skill.id} variant="outline">
-                          {skill.name}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardFooter>
+                  {/* <CardFooter className="space-y-4 lg:space-y-6"></CardFooter> */}
                 </Card>
               </Link>
             ))}

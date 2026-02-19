@@ -111,7 +111,7 @@ export default function Articles({ initialData }: ArticlesProps) {
               }}
             >
               <SelectTrigger className="w-30">
-                   <span className="sr-only">Toggle Per Page</span>
+                <span className="sr-only">Toggle Per Page</span>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -174,7 +174,7 @@ export default function Articles({ initialData }: ArticlesProps) {
               }}
             >
               <SelectTrigger className="w-30">
-                   <span className="sr-only">Toggle Per Page</span>
+                <span className="sr-only">Toggle Per Page</span>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -213,39 +213,40 @@ export default function Articles({ initialData }: ArticlesProps) {
                       {/* article Title & Category */}
                       <CardHeader>
                         <h3 className="font-semibold text-lg line-clamp-3">{article.title}</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {article.categories.slice(0, 2).map((tag) => (
-                            <Badge key={tag.id} className="text-xs">
-                              {tag.name}
-                            </Badge>
-                          ))}
-                          {article.categories.length > 2 && <Badge className="text-xs">+{article.categories.length - 2}</Badge>}
-                        </div>
-                      </CardHeader>
 
-                      {/* article Description */}
-                      <CardContent className="text-sm text-muted-foreground line-clamp-4">{article.description}</CardContent>
-
-                      {/* article Tags & Button */}
-                      <CardFooter>
-                        <div className="space-y-4 lg:space-y-6">
+                        <div className="space-y-4 lg:space-y-6 mb-2">
                           <div className="flex gap-4 items-center">
                             <div className="flex items-center gap-2">
                               <Eye className="size-4" />
-                              <span className="text-xs">
+                              <span className="text-sm md:text-xs">
                                 {article.views} {t("home.article.seen")}
                               </span>
                             </div>
 
                             <div className="flex items-center gap-2">
                               <Clock className="size-4" />
-                              <span className="text-xs">
+                              <span className="text-sm md:text-xs">
                                 {article.reading_time} {t("home.article.minute")}
                               </span>
                             </div>
                           </div>
                         </div>
-                      </CardFooter>
+
+                        <div className="flex flex-wrap gap-2">
+                          {article.categories.slice(0, 2).map((tag) => (
+                            <Badge key={tag.id} className="text-sm md:text-xs">
+                              {tag.name}
+                            </Badge>
+                          ))}
+                          {article.categories.length > 2 && <Badge className="text-sm md:text-xs">+{article.categories.length - 2}</Badge>}
+                        </div>
+                      </CardHeader>
+
+                      {/* article Description */}
+                      <CardContent className="md:text-sm text-muted-foreground line-clamp-3 lg:line-clamp-4">{article.description}</CardContent>
+
+                      {/* article Tags & Button */}
+                      {/* <CardFooter></CardFooter> */}
                     </div>
                   </div>
                 </Card>
