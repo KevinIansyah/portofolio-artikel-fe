@@ -1,4 +1,4 @@
-"use-client";
+"use client";
 
 import { Project } from "@/lib/types/project";
 import { Article } from "@/lib/types/article";
@@ -23,8 +23,8 @@ export default function Home({ projects, articles, skills }: HomeProps) {
       <HeroSection />
       <SkillsSection skills={skills} id="technology" />
       <ProjectsSection projects={projects} id="projects" />
-      <ContactSection id="contact" />
       <ArticlesSection articles={articles} id="articles" />
+      <ContactSection id="contact" />
     </>
   );
 }

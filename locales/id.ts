@@ -15,6 +15,11 @@ export const id = {
   "nav.contact": "Kontak",
   "nav.article": "Artikel",
 
+  "theme.light": "Terang",
+  "theme.dark": "Gelap",
+  "theme.system": "Sistem",
+  "theme.toggleLabel": "Alihkan tema terang atau gelap",
+
   // Footer
   "footer.description": "Fullstack Web Developer berpengalaman dengan teknologi modern seperti Vue, React, Tailwind CSS, Laravel, dan NestJS.",
 
@@ -36,6 +41,19 @@ export const id = {
   "footer.explore.allProject": "Semua Proyek",
   "footer.explore.allArticle": "Semua Artikel",
   "footer.explore.publicApi": "API Publik",
+
+  "footer.brandName": "Kevin Iansyah",
+  "footer.section.company": "Perusahaan",
+  "footer.section.resources": "Sumber daya",
+  "footer.link.about": "Tentang",
+  "footer.link.blog": "Blog",
+  "footer.link.careers": "Karier",
+  "footer.newsletter.title": "Berlangganan blog",
+  "footer.newsletter.hint": "Dapatkan pembaruan artikel dan proyek - tanpa spam.",
+  "footer.allRightsReserved": "Semua hak dilindungi.",
+  "footer.legal.terms": "Syarat",
+  "footer.legal.privacy": "Privasi",
+  "footer.legal.cookies": "Cookie",
 
   "footer.copyright": "© 2025 Kevin Iansyah. Semua hak dilindungi.",
 
@@ -107,6 +125,7 @@ export const id = {
   "home.article.empty": "Tidak ada artikel yang ditemukan",
   "home.article.seen": "dilihat",
   "home.article.minute": "menit",
+  "home.article.featuredBadge": "Unggulan",
 
   // Home Contact
   "heading.home.contact.title": "Hubungi Saya",
@@ -140,6 +159,21 @@ export const id = {
 
   // Home Detail Article
   "home.detail.article.tag": "Tag",
+
+  "article.detail.toc": "Daftar isi",
+  "article.detail.ctaTitle": "Ada proyek yang ingin dibahas?",
+  "article.detail.ctaDescription": "Mari diskusikan website atau kolaborasi berikutnya.",
+  "article.detail.ctaButton": "Hubungi saya",
+  "article.detail.authorTitle": "Tentang penulis",
+  "article.detail.share": "Bagikan",
+  "article.detail.shareCopied": "Tautan disalin",
+  "article.detail.shareDialogTitle": "Bagikan artikel",
+  "article.detail.shareViaWhatsApp": "WhatsApp",
+  "article.detail.shareViaTelegram": "Telegram",
+  "article.detail.shareViaX": "X",
+  "article.detail.copyLink": "Salin tautan",
+  "article.detail.readTimeSuffix": "mnt baca",
+  "article.detail.viewsUnit": "tayangan",
 
   // Login
   "heading.login.title": "Masuk ke akun Anda",

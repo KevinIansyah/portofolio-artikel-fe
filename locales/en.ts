@@ -16,6 +16,11 @@ export const en: Record<TranslationKey, string> = {
   "nav.contact": "Contact",
   "nav.article": "Article",
 
+  "theme.light": "Light",
+  "theme.dark": "Dark",
+  "theme.system": "System",
+  "theme.toggleLabel": "Toggle light or dark theme",
+
   // Footer
   "footer.description": "Fullstack Web Developer with experience in modern technologies such as Vue, React, Tailwind CSS, Laravel, and NestJS.",
 
@@ -37,6 +42,19 @@ export const en: Record<TranslationKey, string> = {
   "footer.explore.allProject": "All Projects",
   "footer.explore.allArticle": "All Articles",
   "footer.explore.publicApi": "Public API",
+
+  "footer.brandName": "Kevin Iansyah",
+  "footer.section.company": "Company",
+  "footer.section.resources": "Resources",
+  "footer.link.about": "About",
+  "footer.link.blog": "Blog",
+  "footer.link.careers": "Careers",
+  "footer.newsletter.title": "Join the blog",
+  "footer.newsletter.hint": "Get updates on new articles and projects - no spam.",
+  "footer.allRightsReserved": "All rights reserved.",
+  "footer.legal.terms": "Terms",
+  "footer.legal.privacy": "Privacy",
+  "footer.legal.cookies": "Cookies",
 
   "footer.copyright": "© 2025 Kevin Iansyah. All rights reserved.",
 
@@ -108,6 +126,7 @@ export const en: Record<TranslationKey, string> = {
   "home.article.empty": "No articles found",
   "home.article.seen": "seen",
   "home.article.minute": "minute",
+  "home.article.featuredBadge": "Featured",
 
   // Home Contact
   "heading.home.contact.title": "Contact Me",
@@ -141,6 +160,21 @@ export const en: Record<TranslationKey, string> = {
 
   // Home Detail Article
   "home.detail.article.tag": "Tags",
+
+  "article.detail.toc": "Table of contents",
+  "article.detail.ctaTitle": "Have a project in mind?",
+  "article.detail.ctaDescription": "Let's talk about your next website or collaboration.",
+  "article.detail.ctaButton": "Contact me",
+  "article.detail.authorTitle": "About the author",
+  "article.detail.share": "Share",
+  "article.detail.shareCopied": "Link copied",
+  "article.detail.shareDialogTitle": "Share article",
+  "article.detail.shareViaWhatsApp": "WhatsApp",
+  "article.detail.shareViaTelegram": "Telegram",
+  "article.detail.shareViaX": "X",
+  "article.detail.copyLink": "Copy link",
+  "article.detail.readTimeSuffix": "min read",
+  "article.detail.viewsUnit": "views",
 
   // Login
   "heading.login.title": "Login to your account",

@@ -8,7 +8,8 @@ import { useLanguage } from "@/hooks/use-language";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import { siteFieldClass } from "@/lib/site-ui";
 
 interface NavItem {
   title: string;
@@ -18,11 +19,6 @@ interface NavItem {
 interface SocialItem {
   name: string;
   url: string;
-}
-
-interface GeneralLinkItem {
-  title: string;
-  href: string;
 }
 
 export default function AppFooter() {
@@ -45,92 +41,103 @@ export default function AppFooter() {
     { name: "GitHub", url: "https://github.com/KevinIansyah" },
   ];
 
-  const generalLinks: GeneralLinkItem[] = [
-    { title: t("footer.explore.allArticle"), href: "/articles" },
-    { title: t("footer.explore.allProject"), href: "/projects" },
-    { title: t("footer.explore.publicApi"), href: "#" },
-  ];
-
   const subscribeNewsletter = () => {
-    if (email) {
+    if (email.trim()) {
       setEmail("");
     }
   };
 
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="bg-muted text-foreground">
-      <div className="mx-auto px-4 max-w-6xl">
-        <div className="py-16">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[2fr_1fr_1fr_1fr]">
-            {/* Brand & Newsletter */}
-            <div className="lg:col-span-1 lg:w-[80%]">
-              <h3 className="text-lg font-semibold mb-4">KI</h3>
-              <p className="text-muted-foreground md:text-sm mb-6 max-w-xs">{t("footer.description")}</p>
+    <footer className="bg-background px-4 py-12 md:py-16">
+      <div className="mx-auto max-w-6xl">
+        <div className="rounded-3xl border border-dashed border-border p-2">
+          <div className="rounded-2xl border border-border bg-card p-8 shadow-sm md:p-10 lg:p-12">
+            {/* Brand + Navigasi + Media sosial */}
+            <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-4 md:gap-8 lg:gap-12">
+              <div className="space-y-4 lg:col-span-2">
+                <p className="text-lg font-bold">KI</p>
+                <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">{t("footer.description")}</p>
+              </div>
 
               <div>
-                <h4 className="md:text-sm font-medium mb-4">{t("footer.articleSubscribe")}</h4>
-                <div className="flex">
-                  <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder={t("form.footer.placeholder.email")} className="text-sm flex-1" />
-                  <Button onClick={subscribeNewsletter} className="ml-2 shadow-none" disabled>
-                    <span className="sr-only">Send</span>
-                    <ArrowRight />
-                  </Button>
-                </div>
-                <p className="md:text-sm text-muted-foreground mt-4">{t("footer.articleSubscribeDescription")}</p>
+                <h4 className="mb-4 text-sm font-semibold text-foreground">{t("footer.navigation")}</h4>
+                <ul className="space-y-3">
+                  {mainNavItems.map((item) => (
+                    <li key={item.title}>
+                      <Link href={item.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="mb-4 text-sm font-semibold text-foreground">{t("footer.socialMedia")}</h4>
+                <ul className="space-y-3">
+                  {socials.map((item) => (
+                    <li key={item.name}>
+                      <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                        {item.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
-            {/* Navigation */}
-            <div>
-              <h4 className="md:text-sm font-semibold mb-4">{t("footer.navigation")}</h4>
-              <ul className="space-y-4">
-                {mainNavItems.map((item) => (
-                  <li key={item.title}>
-                    <Link href={item.href} className="md:text-sm text-foreground hover:text-muted-foreground transition-colors">
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <hr className="my-10 border-border" />
+
+            {/* Newsletter */}
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
+              <div className="max-w-lg space-y-2">
+                <h4 className="text-base font-semibold text-foreground">{t("footer.newsletter.title")}</h4>
+                <p className="text-xs leading-relaxed text-muted-foreground">{t("footer.articleSubscribeDescription")}</p>
+              </div>
+              <div className="w-full max-w-md shrink-0 space-y-2">
+                <div className="flex gap-2">
+                  <Input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    type="email"
+                    placeholder={t("form.footer.placeholder.email")}
+                    className={cn("h-10 flex-1", siteFieldClass)}
+                  />
+                  <Button
+                    type="button"
+                    size="icon"
+                    className="h-10 w-10 shrink-0 rounded-md shadow-none"
+                    onClick={subscribeNewsletter}
+                    disabled={!email.trim()}
+                    aria-label={t("footer.articleSubscribe")}
+                  >
+                    <ArrowRight className="size-4" />
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">{t("footer.newsletter.hint")}</p>
+              </div>
             </div>
 
-            {/* Social Media */}
-            <div>
-              <h4 className="md:text-sm font-semibold mb-4">{t("footer.socialMedia")}</h4>
-              <ul className="space-y-4">
-                {socials.map((item) => (
-                  <li key={item.name}>
-                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="md:text-sm text-foreground hover:text-muted-foreground transition-colors">
-                      {item.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <hr className="my-10 border-border" />
 
-            {/* General Links */}
-            <div>
-              <h4 className="md:text-sm font-semibold mb-4">{t("footer.explore")}</h4>
-              <ul className="space-y-4">
-                {generalLinks.map((item) => (
-                  <li key={item.title}>
-                    <Link href={item.href} className="md:text-sm text-foreground hover:text-muted-foreground transition-colors">
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Copyright */}
-        <div className="py-10">
-          <div className="flex flex-col lg:flex-row justify-center items-center">
-            <div className="mb-4 lg:mb-0">
-              <p className="text-sm text-muted-foreground">{t("footer.copyright")}</p>
+            {/* Copyright + legal */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-muted-foreground">
+                © {year} {t("footer.brandName")}. {t("footer.allRightsReserved")}
+              </p>
+              <div className="flex flex-wrap gap-6 text-sm">
+                <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
+                  {t("footer.legal.terms")}
+                </Link>
+                <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
+                  {t("footer.legal.privacy")}
+                </Link>
+                <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
+                  {t("footer.legal.cookies")}
+                </Link>
+              </div>
             </div>
           </div>
         </div>

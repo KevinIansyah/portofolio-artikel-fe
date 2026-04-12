@@ -11,13 +11,13 @@ import { useLanguage } from "@/hooks/use-language";
 
 import { Project } from "@/lib/types/project";
 import { Paginator } from "@/lib/types/paginator";
-import { getFullImageUrl } from "@/lib/utils";
+import { cn, getFullImageUrl } from "@/lib/utils";
+import { siteCardInner, siteCardOuter, siteFieldClass, siteSelectFieldClass } from "@/lib/site-ui";
 
 import { apiClient } from "@/lib/api/client";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Heading from "@/components/home/heading";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -97,10 +97,10 @@ export default function Projects({ initialData }: ProjectProps) {
         <Heading title={t("heading.home.project.title")} subtitle={t("heading.home.project.subtitle")} description={t("heading.home.project.description")} />
 
         <div className="space-y-4 lg:space-y-6">
-          <div className="flex items-center justify-between gap-4">
-            <div className="relative max-w-sm flex-1">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            <div className="relative min-w-0 w-full sm:max-w-md sm:flex-1">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input placeholder={t("table.project.search")} value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
+              <Input placeholder={t("table.project.search")} value={search} onChange={(e) => setSearch(e.target.value)} className={cn("h-10 pl-9", siteFieldClass)} />
             </div>
 
             <Select
@@ -110,7 +110,7 @@ export default function Projects({ initialData }: ProjectProps) {
                 setCurrentPage(1);
               }}
             >
-              <SelectTrigger className="w-30">
+              <SelectTrigger className={siteSelectFieldClass}>
                 <span className="sr-only">Toggle Per Page</span>
                 <SelectValue />
               </SelectTrigger>
@@ -158,11 +158,11 @@ export default function Projects({ initialData }: ProjectProps) {
 
         <div className="space-y-4 lg:space-y-6">
           {/* Filter */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
             {/* Search */}
-            <div className="relative max-w-sm flex-1">
+            <div className="relative min-w-0 w-full sm:max-w-md sm:flex-1">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input placeholder={t("table.project.search")} value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
+              <Input placeholder={t("table.project.search")} value={search} onChange={(e) => setSearch(e.target.value)} className={cn("h-10 pl-9", siteFieldClass)} />
             </div>
 
             {/* Per Page Select */}
@@ -173,7 +173,7 @@ export default function Projects({ initialData }: ProjectProps) {
                 setCurrentPage(1);
               }}
             >
-              <SelectTrigger className="w-30">
+              <SelectTrigger className={siteSelectFieldClass}>
                 <span className="sr-only">Toggle Per Page</span>
                 <SelectValue />
               </SelectTrigger>
@@ -190,51 +190,49 @@ export default function Projects({ initialData }: ProjectProps) {
           </div>
 
           {/* Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             {projects.map((project) => (
-              <Link href={`/projects/${project.slug}`} key={project.id}>
-                <Card key={project.id} className="group overflow-hidden flex flex-col rounded-lg pt-0 lg:pt-0 bg-linear-to-br from-muted to-background hover:shadow-lg">
-                  {/* Project Image */}
-                  <div className="w-full h-50 overflow-hidden">
-                    <div className="relative w-full h-50">
-                      <Image
-                        src={getFullImageUrl(project.thumbnail_url)}
-                        alt={project.title}
-                        fill
-                        className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
-                        sizes="fullscreen"
-                        unoptimized={unoptimized}
-                      />
+              <Link href={`/projects/${project.slug}`} key={project.id} className="group block h-full">
+                <div className={cn(siteCardOuter, "h-full transition-colors group-hover:border-primary/35")}>
+                  <article className={cn("flex h-full flex-col overflow-hidden", siteCardInner)}>
+                    <div className="p-2">
+                      <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+                        <Image
+                          src={getFullImageUrl(project.thumbnail_url)}
+                          alt={project.title}
+                          fill
+                          className="object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          unoptimized={unoptimized}
+                        />
+                        {project.categories[0] && (
+                          <Badge className="absolute left-2 top-2 border-0 rounded-sm py-1.5 px-2 bg-background/70 text-xs text-foreground backdrop-blur-sm">{project.categories[0].name}</Badge>
+                        )}
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Project Title & Category */}
-                  <CardHeader>
-                    <h3 className="font-semibold text-lg line-clamp-2">{project.title}</h3>
-
-                    <div className="flex flex-wrap gap-2">
-                      {project.categories.slice(0, 2).map((category) => (
-                        <Badge key={category.id} className="text-sm md:text-xs">
-                          {category.name}
-                        </Badge>
-                      ))}
+                    <hr className="border-border" />
+                    <div className="flex flex-1 flex-col px-4 pb-4 pt-1">
+                      <h3 className="mt-3 line-clamp-2 text-left text-base font-semibold leading-snug tracking-tight text-foreground">{project.title}</h3>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {project.categories.slice(0, 2).map((category) => (
+                          <Badge key={category.id} className="rounded-sm px-1 py-0.5 text-[10px]">
+                            {category.name}
+                          </Badge>
+                        ))}
+                        {project.categories.length > 2 && <Badge className="rounded-sm px-1 py-0.5 text-[10px] min-w-6">+{project.categories.length - 2}</Badge>}
+                      </div>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {project.skills.slice(0, 3).map((skill) => (
+                          <Badge key={skill.id} className="rounded-sm bg-primary/20 px-1 py-0.5 text-[10px]">
+                            {skill.name}
+                          </Badge>
+                        ))}
+                        {project.skills.length > 3 && <Badge className="rounded-sm px-1 py-0.5 text-[10px] text-muted-foreground bg-primary/20 min-w-6">+{project.skills.length - 3}</Badge>}
+                      </div>
+                      <p className="mt-3 line-clamp-3 flex-1 text-left text-xs leading-relaxed text-muted-foreground">{project.description}</p>
                     </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      {project.skills.slice(0, 3).map((skill) => (
-                        <Badge key={skill.id} variant="outline" className="text-sm md:text-xs">
-                          {skill.name}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardHeader>
-
-                  {/* Project Description */}
-                  <CardContent className="md:text-sm text-muted-foreground line-clamp-3 mb-0">{project.description}</CardContent>
-
-                  {/* Project Tags & Button */}
-                  {/* <CardFooter className="space-y-4 lg:space-y-6"></CardFooter> */}
-                </Card>
+                  </article>
+                </div>
               </Link>
             ))}
           </div>
@@ -245,7 +243,7 @@ export default function Projects({ initialData }: ProjectProps) {
               {t("datatable.showing")} {meta?.from || 0} {t("datatable.to")} {meta?.to || 0} {t("datatable.of")} {meta?.total || 0} {t("projects.lowercase")}
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} disabled={currentPage === 1 || isLoading}>
+              <Button variant="outline" className="border-dashed bg-transparent shadow-none" onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} disabled={currentPage === 1 || isLoading}>
                 {t("datatable.previous")}
               </Button>
               <div className="flex items-center gap-1">
@@ -253,7 +251,12 @@ export default function Projects({ initialData }: ProjectProps) {
                   {t("datatable.page")} {currentPage} {t("datatable.of")} {meta?.last_page || 1}
                 </span>
               </div>
-              <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => prev + 1)} disabled={currentPage >= (meta?.last_page || 1) || isLoading}>
+              <Button
+                variant="outline"
+                className="border-dashed bg-transparent shadow-none"
+                onClick={() => setCurrentPage((prev) => prev + 1)}
+                disabled={currentPage >= (meta?.last_page || 1) || isLoading}
+              >
                 {t("datatable.next")}
               </Button>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "motion/react";
 
 import { useLanguage } from "@/hooks/use-language";
 
@@ -31,22 +32,27 @@ export default function SkillsSection({ skills, id }: SkillsSectionProps) {
   }
 
   return (
-    <section id={id} className="mx-auto py-16 px-4 lg:max-w-6xl">
+    <section id={id} className="mx-auto py-26 px-4 lg:max-w-6xl">
       <div className="space-y-14">
         <Heading title={t("heading.home.skill.title")} subtitle={t("heading.home.skill.subtitle")} description={t("heading.home.skill.description")} />
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-4 lg:gap-6 lg:[&>*:nth-last-child(-n+3):nth-child(7n+1)]:col-start-3">
+        <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 lg:gap-6">
           {skills.map((skill, index) => (
-            <div
+            <motion.div
               key={skill.id}
-              className="group flex flex-col items-center justify-center space-y-2 p-4 lg:p-6 rounded-lg transition-all duration-300 bg-linear-to-br from-muted to-background hover:shadow-lg hover:scale-105"
-              style={{ animationDelay: `${800 + index * 100}ms` }}
+              className="rounded-3xl border border-dashed p-2"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.4, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="relative h-10 w-10 transition-transform duration-300 group-hover:scale-110">
-                <Image src={getFullImageUrl(skill.dark_icon_url)} alt={skill.name} fill className="object-contain" sizes="40px" unoptimized={unoptimized} />
+              <div className="group flex flex-col items-center justify-center space-y-3 rounded-2xl bg-card p-4 transition-all duration-300 hover:shadow-lg">
+                <div className="relative h-10 w-10 transition-transform duration-300 group-hover:scale-110">
+                  <Image src={getFullImageUrl(skill.dark_icon_url)} alt={skill.name} fill className="object-contain" sizes="40px" unoptimized={unoptimized} />
+                </div>
+                <p className="text-center text-xs text-foreground">{skill.name}</p>
               </div>
-              <p className="text-sm text-center text-foreground">{skill.name}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
