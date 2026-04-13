@@ -157,6 +157,7 @@ export const en: Record<TranslationKey, string> = {
 
   "button.home.detail.project.seeDemo": "See Demo",
   "button.home.detail.project.seeCode": "See Code",
+  "home.detail.project.ctaWhatsAppPrefill": "Hi, I'd like to discuss my project.",
 
   // Home Detail Article
   "home.detail.article.tag": "Tags",
@@ -165,6 +166,7 @@ export const en: Record<TranslationKey, string> = {
   "article.detail.ctaTitle": "Have a project in mind?",
   "article.detail.ctaDescription": "Let's talk about your next website or collaboration.",
   "article.detail.ctaButton": "Contact me",
+  "article.detail.ctaWhatsAppPrefill": "Hi, I'd like to discuss my project.",
   "article.detail.authorTitle": "About the author",
   "article.detail.share": "Share",
   "article.detail.shareCopied": "Link copied",

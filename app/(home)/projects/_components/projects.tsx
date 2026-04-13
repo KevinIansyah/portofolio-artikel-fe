@@ -133,7 +133,7 @@ export default function Projects({ initialData }: ProjectProps) {
               {t("datatable.showing")} {meta?.from || 0} {t("datatable.to")} {meta?.to || 0} {t("datatable.of")} {meta?.total || 0} {t("projects.lowercase")}
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} disabled={currentPage === 1 || isLoading}>
+              <Button variant="outline" className="border-dashed shadow-none" onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} disabled={currentPage === 1 || isLoading}>
                 {t("datatable.previous")}
               </Button>
               <div className="flex items-center gap-1">
@@ -141,7 +141,7 @@ export default function Projects({ initialData }: ProjectProps) {
                   {t("datatable.page")} {currentPage} {t("datatable.of")} {meta?.last_page || 1}
                 </span>
               </div>
-              <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => prev + 1)} disabled={currentPage >= (meta?.last_page || 1) || isLoading}>
+              <Button variant="outline" className="border-dashed shadow-none" onClick={() => setCurrentPage((prev) => prev + 1)} disabled={currentPage >= (meta?.last_page || 1) || isLoading}>
                 {t("datatable.next")}
               </Button>
             </div>
@@ -158,7 +158,7 @@ export default function Projects({ initialData }: ProjectProps) {
 
         <div className="space-y-4 lg:space-y-6">
           {/* Filter */}
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+          <div className="flex gap-2 items-center justify-between">
             {/* Search */}
             <div className="relative min-w-0 w-full sm:max-w-md sm:flex-1">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -223,7 +223,7 @@ export default function Projects({ initialData }: ProjectProps) {
                       </div>
                       <div className="mt-2 flex flex-wrap gap-2">
                         {project.skills.slice(0, 3).map((skill) => (
-                          <Badge key={skill.id} className="rounded-sm bg-primary/20 px-1 py-0.5 text-[10px]">
+                          <Badge key={skill.id} className="rounded-sm bg-primary/20 text-foreground px-1 py-0.5 text-[10px]">
                             {skill.name}
                           </Badge>
                         ))}
@@ -238,12 +238,12 @@ export default function Projects({ initialData }: ProjectProps) {
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-between mt-4 lg:mt-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-2 mt-4 lg:mt-6">
             <div className="text-sm text-muted-foreground">
               {t("datatable.showing")} {meta?.from || 0} {t("datatable.to")} {meta?.to || 0} {t("datatable.of")} {meta?.total || 0} {t("projects.lowercase")}
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" className="border-dashed bg-transparent shadow-none" onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} disabled={currentPage === 1 || isLoading}>
+              <Button variant="outline" className="border-dashed shadow-none" onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} disabled={currentPage === 1 || isLoading}>
                 {t("datatable.previous")}
               </Button>
               <div className="flex items-center gap-1">
@@ -253,7 +253,7 @@ export default function Projects({ initialData }: ProjectProps) {
               </div>
               <Button
                 variant="outline"
-                className="border-dashed bg-transparent shadow-none"
+                className="border-dashed shadow-none"
                 onClick={() => setCurrentPage((prev) => prev + 1)}
                 disabled={currentPage >= (meta?.last_page || 1) || isLoading}
               >

@@ -61,8 +61,8 @@ export default function ArticlesSection({ articles, id }: ArticlesSectionProps) 
   }
 
   const [featured, side, ...rest] = list;
-  const middle = rest.slice(0, 3);
-  const compact = rest.slice(3, 6);
+  // const middle = rest.slice(0, 3);
+  const compact = rest.slice(0, 3);
 
   return (
     <section id={id} className="py-16 mx-auto px-4 max-w-6xl">
@@ -140,7 +140,7 @@ export default function ArticlesSection({ articles, id }: ArticlesSectionProps) 
           </div>
 
           {/* Baris 2: tiga kartu vertikal */}
-          {middle.length > 0 && (
+          {/* {middle.length > 0 && (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
               {middle.map((article, index) => (
                 <motion.div
@@ -154,7 +154,7 @@ export default function ArticlesSection({ articles, id }: ArticlesSectionProps) 
                 </motion.div>
               ))}
             </div>
-          )}
+          )} */}
 
           {/* Baris 3: kartu horizontal kompak */}
           {compact.length > 0 && (
@@ -182,7 +182,7 @@ export default function ArticlesSection({ articles, id }: ArticlesSectionProps) 
             viewport={{ once: true }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Button variant="outline" size="lg" className="border-dashed bg-transparent shadow-none" asChild>
+            <Button variant="outline" size="lg" className="border-dashed shadow-none" asChild>
               <Link href="/articles" className="gap-2 px-6">
                 {t("button.home.article.viewAll")}
                 <ArrowRight className="h-4 w-4" />
@@ -258,10 +258,10 @@ function CompactArticleCard({ article, t, unoptimized }: { article: Article; t: 
           </div>
 
           <div className="flex min-w-0 flex-1 flex-col justify-between py-0.5">
-            <h3 className="text-left text-sm font-semibold leading-snug text-foreground line-clamp-1 sm:text-base">{article.title}</h3>
-            <p className="mt-3 flex-1 text-left text-[10px] leading-relaxed text-muted-foreground line-clamp-2">{article.description}</p>
+            <h3 className="text-left text-sm font-semibold leading-snug text-foreground line-clamp-1">{article.title}</h3>
+            <p className="mt-1 flex-1 text-left text-[10px] leading-relaxed text-muted-foreground line-clamp-2">{article.description}</p>
 
-            <div className="mt-auto flex items-center justify-between gap-2 pt-2 text-[10px] text-muted-foreground sm:text-xs">
+            <div className="mt-1 flex items-center justify-between gap-2 pt-2 text-[10px] text-muted-foreground sm:text-xs">
               <span className="flex min-w-0 items-center gap-1 px-1.5 py-1 bg-primary/20 rounded-sm">
                 <LayoutList className="size-2.5 shrink-0 opacity-80" />
                 <span className="truncate text-[10px]">{categoryLabel(article)}</span>

@@ -156,6 +156,7 @@ export const id = {
 
   "button.home.detail.project.seeDemo": "Lihat Demo",
   "button.home.detail.project.seeCode": "Lihat Kode",
+  "home.detail.project.ctaWhatsAppPrefill": "Halo, saya ingin berdiskusi perihal proyek saya.",
 
   // Home Detail Article
   "home.detail.article.tag": "Tag",
@@ -164,6 +165,7 @@ export const id = {
   "article.detail.ctaTitle": "Ada proyek yang ingin dibahas?",
   "article.detail.ctaDescription": "Mari diskusikan website atau kolaborasi berikutnya.",
   "article.detail.ctaButton": "Hubungi saya",
+  "article.detail.ctaWhatsAppPrefill": "Halo, saya ingin berdiskusi perihal proyek saya.",
   "article.detail.authorTitle": "Tentang penulis",
   "article.detail.share": "Bagikan",
   "article.detail.shareCopied": "Tautan disalin",

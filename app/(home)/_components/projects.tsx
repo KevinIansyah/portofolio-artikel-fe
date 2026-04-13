@@ -132,7 +132,7 @@ export default function ProjectsSection({ projects, id }: ProjectsSectionProps) 
               viewport={{ once: true }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Button variant="outline" size="lg" className="border-dashed bg-transparent shadow-none" asChild>
+              <Button variant="outline" size="lg" className="border-dashed shadow-none" asChild>
                 <Link href="/projects" className="gap-2 px-6">
                   {t("button.home.project.viewAll")}
                   <ArrowRight className="h-4 w-4" />

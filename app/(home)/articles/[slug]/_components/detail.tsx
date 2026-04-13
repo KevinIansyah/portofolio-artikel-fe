@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Clock, Share2 } from "lucide-react";
@@ -11,6 +10,7 @@ import { useLanguage } from "@/hooks/use-language";
 
 import { Article } from "@/lib/types/article";
 import { buildTocFromHtml } from "@/lib/build-content-toc";
+import { siteWhatsAppChatUrl } from "@/lib/site-ui";
 import { cn, formatDate, getFullImageUrl, getInitials } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
@@ -129,6 +129,8 @@ export default function Detail({ article }: DetailProps) {
     router.push(`/articles/${slug}`);
   }, [language, article, router]);
 
+  const ctaWhatsAppHref = useMemo(() => siteWhatsAppChatUrl(t("article.detail.ctaWhatsAppPrefill")), [t]);
+
   if (!article) {
     return <Error />;
   }
@@ -157,202 +159,199 @@ export default function Detail({ article }: DetailProps) {
   return (
     <>
       <DetailPageBlobs />
-      <div className="relative z-10 mt-26 min-h-screen">
-      {/* Title & Meta */}
-      <div className="mx-auto max-w-6xl px-4 pt-8 pb-6">
-        {primaryCategory && <Badge className="mb-4 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground">{primaryCategory.name}</Badge>}
+      <div className="relative z-10 mt-16 min-h-screen">
+        {/* Title & Meta */}
+        <div className="mx-auto max-w-6xl px-4 pt-8 pb-6">
+          {primaryCategory && <Badge className="mb-4 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground">{primaryCategory.name}</Badge>}
 
-        <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-foreground md:leading-tight">{article.title}</h1>
-        <p className="max-w-3xl mt-3 text-base text-muted-foreground">{article.description}</p>
+          <h1 className="max-w-4xl text-3xl md:text-4xl font-bold tracking-tight text-foreground md:leading-tight">{article.title}</h1>
+          <p className="max-w-3xl mt-3 text-base text-muted-foreground">{article.description}</p>
 
-        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex min-w-0 items-center gap-3">
-            <Avatar className="h-10 w-10 shrink-0 rounded-full">
-              <AvatarImage src={article.user.avatar_url} alt={article.user.name} />
-              <AvatarFallback className="rounded-full">{getInitials(article.user.name)}</AvatarFallback>
-            </Avatar>
-            <div className="min-w-0">
-              <p className="font-semibold text-sm">{article.user.name}</p>
-              <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">{article.user.bio ? article.user.bio : "Full Stack Developer"}</p>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-zinc-400">
-            {article.published_at ? <span>{formatDate(article.published_at, language)}</span> : null}
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="size-3.5 shrink-0 opacity-80" aria-hidden />
-              <span>
-                {article.reading_time} {t("article.detail.readTimeSuffix")}
-              </span>
-            </span>
-            <span>
-              {article.views} {t("article.detail.viewsUnit")}
-            </span>
-            <Popover open={shareFallbackOpen} onOpenChange={setShareFallbackOpen}>
-              <PopoverAnchor asChild>
-                <button type="button" className="inline-flex items-center gap-1.5 text-zinc-400 transition-colors hover:text-white" onClick={() => void handleShareClick()}>
-                  <Share2 className="size-3.5 shrink-0 opacity-80" aria-hidden />
-                  {shareCopied ? t("article.detail.shareCopied") : t("article.detail.share")}
-                </button>
-              </PopoverAnchor>
-              <PopoverContent align="end" className="w-[min(100vw-2rem,18rem)] border-zinc-700 bg-zinc-950 p-3 text-zinc-100 shadow-lg" onOpenAutoFocus={(e) => e.preventDefault()}>
-                <p className="mb-2 text-xs font-medium text-zinc-400">{t("article.detail.shareDialogTitle")}</p>
-                <ul className="flex flex-col gap-0.5">
-                  <li>
-                    <button
-                      type="button"
-                      className="w-full rounded-md px-2 py-2 text-left text-sm transition-colors hover:bg-white/10"
-                      onClick={() => {
-                        const pageUrl = window.location.href;
-                        const text = article.description?.trim() ? `${article.title}\n\n${article.description.slice(0, 200)}\n\n${pageUrl}` : `${article.title}\n\n${pageUrl}`;
-                        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
-                        setShareFallbackOpen(false);
-                      }}
-                    >
-                      {t("article.detail.shareViaWhatsApp")}
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className="w-full rounded-md px-2 py-2 text-left text-sm transition-colors hover:bg-white/10"
-                      onClick={() => {
-                        const pageUrl = window.location.href;
-                        window.open(`https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(article.title)}`, "_blank", "noopener,noreferrer");
-                        setShareFallbackOpen(false);
-                      }}
-                    >
-                      {t("article.detail.shareViaTelegram")}
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className="w-full rounded-md px-2 py-2 text-left text-sm transition-colors hover:bg-white/10"
-                      onClick={() => {
-                        const pageUrl = window.location.href;
-                        window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(article.title)}`, "_blank", "noopener,noreferrer");
-                        setShareFallbackOpen(false);
-                      }}
-                    >
-                      {t("article.detail.shareViaX")}
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className="w-full rounded-md px-2 py-2 text-left text-sm transition-colors hover:bg-white/10"
-                      onClick={async () => {
-                        try {
-                          await navigator.clipboard.writeText(window.location.href);
-                          setShareCopied(true);
-                          setShareFallbackOpen(false);
-                          window.setTimeout(() => setShareCopied(false), 2000);
-                        } catch {
-                          /* ignore */
-                        }
-                      }}
-                    >
-                      {t("article.detail.copyLink")}
-                    </button>
-                  </li>
-                </ul>
-              </PopoverContent>
-            </Popover>
-          </div>
-        </div>
-      </div>
-
-      {/* Hero image + overlay judul */}
-      <section className="mx-auto max-w-6xl px-4 pb-14">
-        <div className="relative aspect-2/1 min-h-[220px] w-full overflow-hidden rounded-xl md:aspect-21/9 md:min-h-[280px]">
-          <Image src={getFullImageUrl(article.thumbnail_url)} alt="" fill className="object-cover object-center" priority unoptimized={unoptimized} />
-          <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/25 to-transparent" aria-hidden />
-        </div>
-      </section>
-
-      {/* Konten + sidebar */}
-      <div className="mx-auto max-w-6xl px-4 pb-20">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-          <main className="min-w-0 lg:col-span-8">
-            {article.content && (
-              <>
-                <div
-                  id="article-body"
-                  className="prose prose-neutral max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-primary [&>h1:first-child]:mt-0! [&>h2:first-child]:mt-0!"
-                  dangerouslySetInnerHTML={{ __html: article.content }}
-                />
-
-                {article.tags.length > 0 && (
-                  <div className="mt-10 border-t border-border pt-8">
-                    {/* <p className="mb-3 text-sm font-semibold text-foreground">{t("home.detail.article.tag")}</p> */}
-                    <div className="flex flex-wrap gap-2">
-                      {article.tags.map((tag) => (
-                        <span key={tag.id} className="text-sm text-muted-foreground">
-                          #{tag.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* <div className="mt-10 rounded-xl border border-border bg-muted/30 p-6">
-                  <p className="mb-4 text-sm font-semibold text-foreground">{t("article.detail.authorTitle")}</p>
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-                    <Avatar className="h-14 w-14 shrink-0 rounded-full border border-border">
-                      <AvatarImage src={article.user.avatar_url} alt="" />
-                      <AvatarFallback>{getInitials(article.user.name)}</AvatarFallback>
-                    </Avatar>
-                    <div className="min-w-0 space-y-2">
-                      <p className="font-semibold text-foreground">{article.user.name}</p>
-                      {article.user.bio ? <p className="text-sm leading-relaxed text-muted-foreground">{article.user.bio}</p> : <p className="text-sm text-muted-foreground">{article.user.email}</p>}
-                    </div>
-                  </div>
-                </div> */}
-              </>
-            )}
-          </main>
-
-          <aside className="lg:col-span-4">
-            <div className="flex flex-col gap-6 lg:sticky lg:top-24">
-              {toc.length > 0 && (
-                <nav className="rounded-xl border border-border bg-card p-4 lg:p-6 shadow-sm" aria-label={t("article.detail.toc")}>
-                  <p className="mb-3 text-base font-semibold text-foreground">{t("article.detail.toc")}</p>
-                  <ul className="space-y-2 text-sm">
-                    {toc.map((item) => (
-                      <li key={item.id}>
-                        <a
-                          href={`#${item.id}`}
-                          className={cn(
-                            "block text-muted-foreground transition-colors hover:text-foreground",
-                            item.level === 1 && "font-medium text-foreground",
-                            item.level === 2 && "pl-3",
-                            item.level === 3 && "pl-6 text-[13px]",
-                          )}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-                          }}
-                        >
-                          {item.text}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              )}
-
-              <div className="rounded-xl border border-border bg-card p-4 lg:p-6 shadow-sm">
-                <p className="text-base font-semibold text-foreground">{t("article.detail.ctaTitle")}</p>
-                <p className="mt-2 text-sm text-muted-foreground">{t("article.detail.ctaDescription")}</p>
-                <Button className="mt-4 w-full sm:w-auto" asChild>
-                  <Link href="/#contact">{t("article.detail.ctaButton")}</Link>
-                </Button>
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex min-w-0 items-center gap-3">
+              <Avatar className="h-10 w-10 shrink-0 rounded-full">
+                <AvatarImage src={article.user.avatar_url} alt={article.user.name} />
+                <AvatarFallback className="rounded-full">{getInitials(article.user.name)}</AvatarFallback>
+              </Avatar>
+              <div className="min-w-0">
+                <p className="font-semibold text-sm">{article.user.name}</p>
+                <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">{article.user.bio ? article.user.bio : "Full Stack Developer"}</p>
               </div>
             </div>
-          </aside>
+
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-zinc-400">
+              {article.published_at ? <span>{formatDate(article.published_at, language)}</span> : null}
+              <span className="inline-flex items-center gap-1.5">
+                <Clock className="size-3.5 shrink-0 opacity-80" aria-hidden />
+                <span>
+                  {article.reading_time} {t("article.detail.readTimeSuffix")}
+                </span>
+              </span>
+              <span>
+                {article.views} {t("article.detail.viewsUnit")}
+              </span>
+              <Popover open={shareFallbackOpen} onOpenChange={setShareFallbackOpen}>
+                <PopoverAnchor asChild>
+                  <button type="button" className="inline-flex items-center gap-1.5 text-zinc-400 transition-colors hover:text-white" onClick={() => void handleShareClick()}>
+                    <Share2 className="size-3.5 shrink-0 opacity-80" aria-hidden />
+                    {shareCopied ? t("article.detail.shareCopied") : t("article.detail.share")}
+                  </button>
+                </PopoverAnchor>
+                <PopoverContent align="end" className="w-[min(100vw-2rem,18rem)] border-zinc-700 bg-zinc-950 p-3 text-zinc-100 shadow-lg" onOpenAutoFocus={(e) => e.preventDefault()}>
+                  <p className="mb-2 text-xs font-medium text-zinc-400">{t("article.detail.shareDialogTitle")}</p>
+                  <ul className="flex flex-col gap-0.5">
+                    <li>
+                      <button
+                        type="button"
+                        className="w-full rounded-md px-2 py-2 text-left text-sm transition-colors hover:bg-white/10"
+                        onClick={() => {
+                          const pageUrl = window.location.href;
+                          const text = article.description?.trim() ? `${article.title}\n\n${article.description.slice(0, 200)}\n\n${pageUrl}` : `${article.title}\n\n${pageUrl}`;
+                          window.open(siteWhatsAppChatUrl(text), "_blank", "noopener,noreferrer");
+                          setShareFallbackOpen(false);
+                        }}
+                      >
+                        {t("article.detail.shareViaWhatsApp")}
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className="w-full rounded-md px-2 py-2 text-left text-sm transition-colors hover:bg-white/10"
+                        onClick={() => {
+                          const pageUrl = window.location.href;
+                          window.open(`https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(article.title)}`, "_blank", "noopener,noreferrer");
+                          setShareFallbackOpen(false);
+                        }}
+                      >
+                        {t("article.detail.shareViaTelegram")}
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className="w-full rounded-md px-2 py-2 text-left text-sm transition-colors hover:bg-white/10"
+                        onClick={() => {
+                          const pageUrl = window.location.href;
+                          window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(article.title)}`, "_blank", "noopener,noreferrer");
+                          setShareFallbackOpen(false);
+                        }}
+                      >
+                        {t("article.detail.shareViaX")}
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className="w-full rounded-md px-2 py-2 text-left text-sm transition-colors hover:bg-white/10"
+                        onClick={async () => {
+                          try {
+                            await navigator.clipboard.writeText(window.location.href);
+                            setShareCopied(true);
+                            setShareFallbackOpen(false);
+                            window.setTimeout(() => setShareCopied(false), 2000);
+                          } catch {
+                            /* ignore */
+                          }
+                        }}
+                      >
+                        {t("article.detail.copyLink")}
+                      </button>
+                    </li>
+                  </ul>
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
         </div>
-      </div>
+
+        {/* Hero image + overlay judul */}
+        <section className="mx-auto max-w-6xl px-4 pb-10">
+          <div className="relative aspect-2/1 min-h-[220px] w-full overflow-hidden rounded-xl md:aspect-21/9 md:min-h-[280px]">
+            <Image src={getFullImageUrl(article.thumbnail_url)} alt="" fill className="object-cover object-center" priority unoptimized={unoptimized} />
+            <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/25 to-transparent" aria-hidden />
+          </div>
+        </section>
+
+        {/* Konten + sidebar */}
+        <div className="mx-auto max-w-6xl px-4 pb-26">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+            <main className="min-w-0 lg:col-span-8 order-2 lg:order-1">
+              {article.content && (
+                <>
+                  <div
+                    id="article-body"
+                    className="prose prose-neutral max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-primary [&>h1:first-child]:mt-0! [&>h2:first-child]:mt-0!"
+                    dangerouslySetInnerHTML={{ __html: article.content }}
+                  />
+
+                  {article.tags.length > 0 && (
+                    <div className="mt-10 border-t border-border pt-10">
+                      <div className="flex flex-wrap gap-2">
+                        {article.tags.map((tag) => (
+                          <span key={tag.id} className="text-sm text-muted-foreground">
+                            #{tag.name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="mt-10 rounded-xl border border-border bg-card p-4 lg:p-6 shadow-sm block lg:hidden">
+                    <p className="text-base font-semibold text-foreground">{t("article.detail.ctaTitle")}</p>
+                    <p className="mt-2 text-sm text-muted-foreground">{t("article.detail.ctaDescription")}</p>
+                    <Button className="mt-4 w-full sm:w-auto" asChild>
+                      <a href={ctaWhatsAppHref} target="_blank" rel="noopener noreferrer">
+                        {t("article.detail.ctaButton")}
+                      </a>
+                    </Button>
+                  </div>
+                </>
+              )}
+            </main>
+
+            <aside className={cn("lg:col-span-4 order-1 lg:order-2", toc.length > 0 ? "block" : "hidden")}>
+              <div className="flex flex-col gap-4 lg:gap-6 lg:sticky lg:top-24">
+                {toc.length > 0 && (
+                  <nav className="rounded-xl border border-border bg-card p-4 lg:p-6 shadow-sm" aria-label={t("article.detail.toc")}>
+                    <p className="mb-3 text-base font-semibold text-foreground">{t("article.detail.toc")}</p>
+                    <ul className="space-y-2 text-sm">
+                      {toc.map((item) => (
+                        <li key={item.id}>
+                          <a
+                            href={`#${item.id}`}
+                            className={cn(
+                              "block text-muted-foreground transition-colors hover:text-foreground",
+                              item.level === 1 && "font-medium text-foreground",
+                              item.level === 2 && "font-medium text-foreground",
+                              item.level === 3 && "pl-3 text-[13px]",
+                            )}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                            }}
+                          >
+                            {item.text}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                )}
+
+                <div className="rounded-xl border border-border bg-card p-4 lg:p-6 shadow-sm hidden lg:block">
+                  <p className="text-base font-semibold text-foreground">{t("article.detail.ctaTitle")}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">{t("article.detail.ctaDescription")}</p>
+                  <Button className="mt-4 w-full sm:w-auto" asChild>
+                    <a href={ctaWhatsAppHref} target="_blank" rel="noopener noreferrer">
+                      {t("article.detail.ctaButton")}
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
       </div>
     </>
   );

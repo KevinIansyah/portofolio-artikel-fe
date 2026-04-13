@@ -21,7 +21,6 @@ function stripInnerHtml(html: string): string {
     .trim();
 }
 
-/** Daftar isi dari HTML (h1–h3) untuk konten artikel / proyek */
 export function buildTocFromHtml(html: string): ContentTocItem[] {
   const items: ContentTocItem[] = [];
   const re = /<h([1-3])[^>]*>([\s\S]*?)<\/h\1>/gi;

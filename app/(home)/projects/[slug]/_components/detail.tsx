@@ -11,6 +11,7 @@ import { useLanguage } from "@/hooks/use-language";
 
 import { Project } from "@/lib/types/project";
 import { buildTocFromHtml } from "@/lib/build-content-toc";
+import { siteWhatsAppChatUrl } from "@/lib/site-ui";
 import { cn, formatDate, getFullImageUrl, getInitials } from "@/lib/utils";
 
 import { DetailPageBlobs } from "@/components/detail-page-blobs";
@@ -129,6 +130,8 @@ export default function Detail({ project }: DetailProps) {
     router.push(`/projects/${slug}`);
   }, [language, project, router]);
 
+  const ctaWhatsAppHref = useMemo(() => siteWhatsAppChatUrl(t("home.detail.project.ctaWhatsAppPrefill")), [t]);
+
   if (!project) {
     return <Error />;
   }
@@ -157,36 +160,36 @@ export default function Detail({ project }: DetailProps) {
   return (
     <>
       <DetailPageBlobs />
-      <div className="relative z-10 mt-26 min-h-screen">
+      <div className="relative z-10 mt-16 min-h-screen">
         <div className="mx-auto max-w-6xl px-4 pt-8 pb-6">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
             <div className="min-w-0 flex-1">
               {primaryCategory && <Badge className="mb-4 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground">{primaryCategory.name}</Badge>}
 
-              <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-foreground md:leading-tight">{project.title}</h1>
+              <h1 className="max-w-4xl text-3xl md:text-4xl font-bold tracking-tight text-foreground md:leading-tight">{project.title}</h1>
               <p className="mt-3 max-w-3xl text-base text-muted-foreground">{project.description}</p>
             </div>
 
             <div className="flex shrink-0 gap-2 lg:items-end">
               {project.demo_url ? (
-                <Button variant="outline" className="gap-1.5 border-dashed bg-transparent shadow-none flex-1 lg:flex-none w-30" asChild>
+                <Button variant="outline" className="gap-1.5 border-dashed shadow-none flex-1 md:flex-none w-30" asChild>
                   <Link href={project.demo_url} target="_blank" rel="noopener noreferrer">
                     {t("button.home.detail.project.seeDemo")}
                   </Link>
                 </Button>
               ) : (
-                <Button variant="outline" className="gap-1.5 border-dashed bg-transparent shadow-none flex-1 lg:flex-none w-30" disabled>
+                <Button variant="outline" className="gap-1.5 border-dashed shadow-none flex-1 md:flex-none w-30" disabled>
                   {t("button.home.detail.project.seeDemo")}
                 </Button>
               )}
               {project.project_url ? (
-                <Button className="gap-1.5 flex-1 lg:flex-none w-30" asChild>
+                <Button className="gap-1.5 flex-1 md:flex-none w-30" asChild>
                   <Link href={project.project_url} target="_blank" rel="noopener noreferrer">
                     {t("button.home.detail.project.seeCode")}
                   </Link>
                 </Button>
               ) : (
-                <Button className="gap-1.5 flex-1 lg:flex-none w-30" disabled>
+                <Button className="gap-1.5 flex-1 md:flex-none w-30" disabled>
                   {t("button.home.detail.project.seeCode")}
                 </Button>
               )}
@@ -229,7 +232,7 @@ export default function Detail({ project }: DetailProps) {
                         onClick={() => {
                           const pageUrl = window.location.href;
                           const text = project.description?.trim() ? `${project.title}\n\n${project.description.slice(0, 200)}\n\n${pageUrl}` : `${project.title}\n\n${pageUrl}`;
-                          window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+                          window.open(siteWhatsAppChatUrl(text), "_blank", "noopener,noreferrer");
                           setShareFallbackOpen(false);
                         }}
                       >
@@ -287,16 +290,16 @@ export default function Detail({ project }: DetailProps) {
           </div>
         </div>
 
-        <section className="mx-auto max-w-6xl px-4 pb-14">
+        <section className="mx-auto max-w-6xl px-4 pb-10">
           <div className="relative aspect-2/1 min-h-[220px] w-full overflow-hidden rounded-xl md:aspect-21/9 md:min-h-[280px]">
             <Image src={getFullImageUrl(project.thumbnail_url)} alt="" fill className="object-cover object-center" priority unoptimized={unoptimized} />
             <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/25 to-transparent" aria-hidden />
           </div>
         </section>
 
-        <div className="mx-auto max-w-6xl px-4 pb-20">
+        <div className="mx-auto max-w-6xl px-4 pb-26">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-            <main className="min-w-0 lg:col-span-8">
+            <main className="min-w-0 lg:col-span-8 order-2 lg:order-1">
               {project.content && (
                 <div
                   id="project-body"
@@ -304,10 +307,31 @@ export default function Detail({ project }: DetailProps) {
                   dangerouslySetInnerHTML={{ __html: project.content }}
                 />
               )}
+
+              <div className="mt-10 rounded-xl border border-border bg-card p-4 lg:p-6 shadow-sm block lg:hidden">
+                <p className="mb-3 text-base font-semibold text-foreground">{t("home.detail.project.technology")}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.skills.map((skill) => (
+                    <Badge key={skill.id} className="py-1.5 px-3 rounded-md">
+                      {skill.name}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-xl border border-border bg-card p-4 lg:p-6 shadow-sm block lg:hidden">
+                <p className="text-base font-semibold text-foreground">{t("article.detail.ctaTitle")}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{t("article.detail.ctaDescription")}</p>
+                <Button className="mt-4 w-full sm:w-auto" asChild>
+                  <a href={ctaWhatsAppHref} target="_blank" rel="noopener noreferrer">
+                    {t("article.detail.ctaButton")}
+                  </a>
+                </Button>
+              </div>
             </main>
 
-            <aside className="lg:col-span-4">
-              <div className="flex flex-col gap-6 lg:sticky lg:top-24">
+            <aside className={cn("lg:col-span-4 order-1 lg:order-2", toc.length > 0 ? "block" : "hidden lg:block")}>
+              <div className="flex flex-col gap-4 lg:gap-6 lg:sticky lg:top-24">
                 {toc.length > 0 && (
                   <nav className="rounded-xl border border-border bg-card p-4 shadow-sm lg:p-6" aria-label={t("article.detail.toc")}>
                     <p className="mb-3 text-sm font-semibold text-foreground">{t("article.detail.toc")}</p>
@@ -319,7 +343,7 @@ export default function Detail({ project }: DetailProps) {
                             className={cn(
                               "block text-muted-foreground transition-colors hover:text-foreground",
                               item.level === 1 && "font-medium text-foreground",
-                              item.level === 2 && "pl-3",
+                              item.level === 2 && "font-medium text-foreground",
                               item.level === 3 && "pl-6 text-[13px]",
                             )}
                             onClick={(e) => {
@@ -336,11 +360,11 @@ export default function Detail({ project }: DetailProps) {
                 )}
 
                 {project.skills.length > 0 && (
-                  <div className="rounded-xl border border-border bg-card p-4 shadow-sm lg:p-6">
+                  <div className="rounded-xl border border-border bg-card p-4 shadow-sm lg:p-6 hidden lg:block">
                     <p className="mb-3 text-base font-semibold text-foreground">{t("home.detail.project.technology")}</p>
                     <div className="flex flex-wrap gap-2">
                       {project.skills.map((skill) => (
-                        <Badge key={skill.id} className="py-1.5 px-3">
+                        <Badge key={skill.id} className="py-1.5 px-3 rounded-md">
                           {skill.name}
                         </Badge>
                       ))}
@@ -348,11 +372,13 @@ export default function Detail({ project }: DetailProps) {
                   </div>
                 )}
 
-                <div className="rounded-xl border border-border bg-card p-4 shadow-sm lg:p-6">
+                <div className="rounded-xl border border-border bg-card p-4 shadow-sm lg:p-6 hidden lg:block">
                   <p className="text-base font-semibold text-foreground">{t("article.detail.ctaTitle")}</p>
                   <p className="mt-2 text-sm text-muted-foreground">{t("article.detail.ctaDescription")}</p>
                   <Button className="mt-4 w-full sm:w-auto" asChild>
-                    <Link href="/#contact">{t("article.detail.ctaButton")}</Link>
+                    <a href={ctaWhatsAppHref} target="_blank" rel="noopener noreferrer">
+                      {t("article.detail.ctaButton")}
+                    </a>
                   </Button>
                 </div>
               </div>

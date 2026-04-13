@@ -27,10 +27,10 @@ export default function AppFooter() {
 
   const mainNavItems: NavItem[] = [
     { title: t("nav.home"), href: "/" },
-    { title: t("nav.technology"), href: "#technology" },
-    { title: t("nav.project"), href: "#projects" },
-    { title: t("nav.article"), href: "#articles" },
-    { title: t("nav.contact"), href: "#contact" },
+    { title: t("nav.technology"), href: "/#technology" },
+    { title: t("nav.project"), href: "/projects" },
+    { title: t("nav.article"), href: "/articles" },
+    { title: t("nav.contact"), href: "/#contact" },
   ];
 
   const socials: SocialItem[] = [
@@ -53,7 +53,7 @@ export default function AppFooter() {
     <footer className="bg-background px-4 py-12 md:py-16">
       <div className="mx-auto max-w-6xl">
         <div className="rounded-3xl border border-dashed border-border p-2">
-          <div className="rounded-2xl border border-border bg-card p-8 shadow-sm md:p-10 lg:p-12">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm lg:p-6">
             {/* Brand + Navigasi + Media sosial */}
             <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-4 md:gap-8 lg:gap-12">
               <div className="space-y-4 lg:col-span-2">
@@ -98,13 +98,7 @@ export default function AppFooter() {
               </div>
               <div className="w-full max-w-md shrink-0 space-y-2">
                 <div className="flex gap-2">
-                  <Input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    type="email"
-                    placeholder={t("form.footer.placeholder.email")}
-                    className={cn("h-10 flex-1", siteFieldClass)}
-                  />
+                  <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder={t("form.footer.placeholder.email")} className={cn("h-10 flex-1", siteFieldClass)} />
                   <Button
                     type="button"
                     size="icon"

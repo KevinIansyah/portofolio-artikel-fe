@@ -1,12 +1,9 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Alice&family=Great+Vibes&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"); */
-
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
-/* Flat / light (next-themes: "light") — netral, rendah saturasi, permukaan terang */
 :root {
   --background: oklch(0.985 0.004 264);
   --foreground: oklch(0.21 0.02 264);
@@ -61,7 +58,6 @@
   --shadow-none: 0 0 hsl(0 0% 0% / 0);
 }
 
-/* Colorful (next-themes: "dark" / class .dark) — saturasi tinggi, multi-warna */
 .dark {
   --background: oklch(0.16 0.055 290);
   --foreground: oklch(0.97 0.02 285);
@@ -189,7 +185,6 @@
 }
 
 html {
-  /* scrollbar-gutter: stable; */
   scroll-behavior: smooth;
 }
 
@@ -239,7 +234,7 @@ body {
 }
 
 .tiptap h1 {
-  @apply text-3xl font-bold my-4 text-foreground;
+  @apply text-2xl font-bold my-4 text-foreground;
 }
 
 .tiptap h2 {
@@ -247,7 +242,7 @@ body {
 }
 
 .tiptap h3 {
-  @apply text-xl font-bold my-2 text-foreground;
+  @apply text-lg font-bold my-2 text-foreground;
 }
 
 .tiptap ul,
@@ -416,7 +411,7 @@ body {
 }
 
 .prose h1 {
-  @apply mt-10 mb-6 text-3xl text-foreground;
+  @apply mt-10 mb-6 text-2xl text-foreground;
 }
 
 .prose h2 {
@@ -424,7 +419,7 @@ body {
 }
 
 .prose h3 {
-  @apply mt-6 mb-3 text-xl text-foreground;
+  @apply mt-6 mb-3 text-lg text-foreground;
 }
 
 .prose a {
@@ -436,7 +431,7 @@ body {
 }
 
 .prose hr {
-  @apply my-12 border-t border-muted-foreground/50;
+  @apply my-10 border-t border-muted-foreground/50;
 }
 
 .prose ul,
@@ -659,4 +654,3 @@ body {
   color: oklch(1 0 0) !important;
   transition: all 0.2s ease;
 }
-
