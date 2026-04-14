@@ -130,16 +130,13 @@ export function DataTable({ initialData }: DataTableProps) {
 
   return (
     <div className="w-full space-y-4">
-      {/* Filters */}
       <div className="flex items-center justify-between gap-4">
-        <div className="flex flex-1 items-center gap-4">
-          {/* Search */}
+        <div className="flex flex-1 items-center gap-2">
           <div className="relative max-w-sm flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input placeholder={t("table.project.search")} value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
           </div>
 
-          {/* Per Page Select */}
           <Select
             value={perPage.toString()}
             onValueChange={(value) => {
@@ -162,13 +159,11 @@ export function DataTable({ initialData }: DataTableProps) {
           </Select>
         </div>
 
-        {/* Actions */}
-        <div className="flex flex-1 items-center justify-end gap-4">
-          {/* Column Visibility */}
+        <div className="flex flex-1 items-center justify-end gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
-                {t("datatable.columns")} <ChevronDown className="ml-2 h-4 w-4" />
+                {t("datatable.columns")} <ChevronDown className="size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -185,17 +180,15 @@ export function DataTable({ initialData }: DataTableProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Add */}
           <Button asChild>
             <Link href="/dashboard/project/add">
               {t("datatable.add")}
-              <Plus className="h-4 w-4 ml-2" />
+              <Plus className="size-4" />
             </Link>
           </Button>
         </div>
       </div>
 
-      {/* Table */}
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
@@ -246,7 +239,6 @@ export function DataTable({ initialData }: DataTableProps) {
         </Table>
       </div>
 
-      {/* Pagination */}
       <div className="flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
           {t("datatable.showing")} {meta?.from || 0} {t("datatable.to")} {meta?.to || 0} of {meta?.total || 0} {t("projects.lowercase")}

@@ -14,7 +14,6 @@ import { buildTocFromHtml } from "@/lib/build-content-toc";
 import { siteWhatsAppChatUrl } from "@/lib/site-ui";
 import { cn, formatDate, getFullImageUrl, getInitials } from "@/lib/utils";
 
-import { DetailPageBlobs } from "@/components/detail-page-blobs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -28,7 +27,6 @@ interface DetailProps {
 export default function Detail({ project }: DetailProps) {
   const { t, language } = useLanguage();
   const router = useRouter();
-  const unoptimized = process.env.NEXT_PUBLIC_IMAGE_UNOPTIMIZED === "true";
   const initialLanguage = useRef(language);
   const [shareCopied, setShareCopied] = useState(false);
   const [shareFallbackOpen, setShareFallbackOpen] = useState(false);
@@ -159,7 +157,6 @@ export default function Detail({ project }: DetailProps) {
 
   return (
     <>
-      <DetailPageBlobs />
       <div className="relative z-10 mt-16 min-h-screen">
         <div className="mx-auto max-w-6xl px-4 pt-8 pb-6">
           <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
@@ -292,7 +289,7 @@ export default function Detail({ project }: DetailProps) {
 
         <section className="mx-auto max-w-6xl px-4 pb-10">
           <div className="relative aspect-2/1 min-h-[220px] w-full overflow-hidden rounded-xl md:aspect-21/9 md:min-h-[280px]">
-            <Image src={getFullImageUrl(project.thumbnail_url)} alt="" fill className="object-cover object-center" priority unoptimized={unoptimized} />
+            <Image src={getFullImageUrl(project.thumbnail_url)} alt="" fill className="object-cover object-center" priority unoptimized />
             <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/25 to-transparent" aria-hidden />
           </div>
         </section>

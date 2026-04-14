@@ -68,7 +68,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
   };
 
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" variant="inset" {...props}>
       <SidebarHeader>
         <NavLogo logo={data.logo} />
       </SidebarHeader>

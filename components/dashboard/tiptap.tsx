@@ -39,6 +39,7 @@ import {
   List,
   ListOrdered,
   Quote,
+  Minus,
   Undo,
   Redo,
   RemoveFormatting,
@@ -53,10 +54,9 @@ import {
   MoreHorizontal,
   Pilcrow,
   Table as TableIcon,
-  CodeSquare, // Icon untuk code block
+  CodeSquare,
 } from "lucide-react";
 
-// Setup lowlight untuk syntax highlighting
 const lowlight = createLowlight(common);
 
 interface TiptapProps {
@@ -74,7 +74,7 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
       StarterKit.configure({
         link: false,
         underline: false,
-        codeBlock: false, // Disable default code block
+        codeBlock: false,
       }),
       CodeBlockLowlight.configure({
         lowlight,
@@ -266,10 +266,6 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
 
         <Separator orientation="vertical" className="min-h-8" />
 
-        {/* ... rest of your toolbar buttons ... */}
-        {/* Link, Color, Alignment, Lists, Table, Image, etc. - tetap sama seperti sebelumnya */}
-
-        {/* Link */}
         <Popover open={isLinkOpen} onOpenChange={setIsLinkOpen}>
           <PopoverTrigger asChild>
             <Button type="button" variant={editor.isActive("link") ? "default" : "ghost"} size="sm" title="Add Link">
@@ -295,7 +291,6 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
 
         <Separator orientation="vertical" className="min-h-8" />
 
-        {/* Color Picker */}
         <Popover>
           <PopoverTrigger asChild>
             <Button type="button" variant="ghost" size="sm" title="Text Color">
@@ -321,7 +316,6 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
           </PopoverContent>
         </Popover>
 
-        {/* Subscript & Superscript */}
         <Button type="button" variant={editor.isActive("superscript") ? "default" : "ghost"} size="sm" onClick={() => editor.chain().focus().toggleSuperscript().run()} title="Superscript">
           <SuperscriptIcon className="h-4 w-4" />
         </Button>
@@ -332,7 +326,6 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
 
         <Separator orientation="vertical" className="min-h-8" />
 
-        {/* Text Alignment */}
         <Button type="button" variant={editor.isActive({ textAlign: "left" }) ? "default" : "ghost"} size="sm" onClick={() => editor.chain().focus().setTextAlign("left").run()} title="Align Left">
           <AlignLeft className="h-4 w-4" />
         </Button>
@@ -357,7 +350,6 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
 
         <Separator orientation="vertical" className="min-h-8" />
 
-        {/* Lists */}
         <Button type="button" variant={editor.isActive("bulletList") ? "default" : "ghost"} size="sm" onClick={() => editor.chain().focus().toggleBulletList().run()} title="Bullet List">
           <List className="h-4 w-4" />
         </Button>
@@ -370,9 +362,12 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
           <Quote className="h-4 w-4" />
         </Button>
 
+        <Button type="button" variant="ghost" size="sm" onClick={() => editor.chain().focus().setHorizontalRule().run()} title="Garis horizontal (HR)">
+          <Minus className="h-4 w-4" />
+        </Button>
+
         <Separator orientation="vertical" className="min-h-8" />
 
-        {/* Table */}
         <Popover>
           <PopoverTrigger asChild>
             <Button type="button" variant={editor.isActive("table") ? "default" : "ghost"} size="sm" title="Table">
@@ -420,14 +415,12 @@ const Tiptap = ({ content = "", onChange }: TiptapProps) => {
 
         <Separator orientation="vertical" className="min-h-8" />
 
-        {/* Image */}
         <Button type="button" variant="ghost" size="sm" onClick={() => fileInputRef.current?.click()} title="Upload Image">
           <ImagePlus className="h-4 w-4" />
         </Button>
 
         <Separator orientation="vertical" className="min-h-8" />
 
-        {/* More Options */}
         <Popover>
           <PopoverTrigger asChild>
             <Button type="button" variant="ghost" size="sm" title="More">

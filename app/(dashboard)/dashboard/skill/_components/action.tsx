@@ -15,7 +15,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
-// import EditForm from "./editForm";
+import EditForm from "./editForm";
 
 interface ActionsProps {
   skill: Skill;
@@ -93,7 +93,9 @@ export default function Actions({ skill }: ActionsProps) {
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* {skillId && <EditForm open={!!skillId} onOpenChange={(open) => setSkillId(open ? skill.id : null)} skillId={skill.id} />} */}
+      {skillId !== null && (
+        <EditForm open={!!skillId} onOpenChange={(open) => setSkillId(open ? skill.id : null)} skillId={skill.id} />
+      )}
     </>
   );
 }

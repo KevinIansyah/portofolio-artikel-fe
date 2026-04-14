@@ -44,7 +44,6 @@ export function DataTable({ initialData }: DataTableProps) {
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  // Read from URL, fallback to default
   const [currentPage, setCurrentPage] = React.useState(Number(searchParams.get("page")) || 1);
   const [perPage, setPerPage] = React.useState(Number(searchParams.get("per_page")) || 20);
   const [search, setSearch] = React.useState(searchParams.get("search") || "");
@@ -52,7 +51,6 @@ export function DataTable({ initialData }: DataTableProps) {
 
   const columns = getColumns(t);
 
-  // Debounce search
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search);
@@ -62,7 +60,6 @@ export function DataTable({ initialData }: DataTableProps) {
     return () => clearTimeout(timer);
   }, [search]);
 
-  // Sync state to URL every time it changes
   React.useEffect(() => {
     const params = new URLSearchParams();
 
@@ -75,7 +72,6 @@ export function DataTable({ initialData }: DataTableProps) {
     router.push(newUrl, { scroll: false });
   }, [currentPage, perPage, debouncedSearch, router]);
 
-  // Build API URL with query params
   const buildApiUrl = React.useCallback(() => {
     const params = new URLSearchParams();
 
@@ -89,19 +85,16 @@ export function DataTable({ initialData }: DataTableProps) {
     return `/api/categories/paginated?${params.toString()}`;
   }, [currentPage, perPage, debouncedSearch]);
 
-  // Fetch data with SWR
   const { data, error, isLoading } = useSWR<Paginator<Category>>([buildApiUrl(), language], ([url]) => apiClient.get(url), {
     fallbackData: initialData || undefined,
     revalidateOnFocus: false,
     keepPreviousData: true,
   });
 
-  // Reset to page 1 when language changes
   React.useEffect(() => {
     setCurrentPage(1);
   }, [language]);
 
-  // Extract categories data
   const categories = data?.data || [];
   const meta = data;
 
@@ -129,16 +122,13 @@ export function DataTable({ initialData }: DataTableProps) {
 
   return (
     <div className="w-full space-y-4">
-      {/* Filters */}
       <div className="flex items-center justify-between gap-4">
-        <div className="flex flex-1 items-center gap-4">
-          {/* Search */}
+        <div className="flex flex-1 items-center gap-2">
           <div className="relative max-w-sm flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input placeholder="Search categories..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
           </div>
 
-          {/* Per Page Select */}
           <Select
             value={perPage.toString()}
             onValueChange={(value) => {
@@ -161,13 +151,11 @@ export function DataTable({ initialData }: DataTableProps) {
           </Select>
         </div>
 
-        {/* Actions */}
-        <div className="flex flex-1 items-center justify-end gap-4">
-          {/* Column Visibility */}
+        <div className="flex flex-1 items-center justify-end gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
-                Columns <ChevronDown className="ml-2 h-4 w-4" />
+                Columns <ChevronDown className="size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -184,12 +172,10 @@ export function DataTable({ initialData }: DataTableProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Add */}
           <AddForm />
         </div>
       </div>
 
-      {/* Table */}
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
@@ -197,7 +183,7 @@ export function DataTable({ initialData }: DataTableProps) {
               <TableRow key={headerGroup.id} className="bg-primary hover:bg-primary">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} className="text-black dark:text-white">
+                    <TableHead key={header.id}>
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
@@ -240,7 +226,6 @@ export function DataTable({ initialData }: DataTableProps) {
         </Table>
       </div>
 
-      {/* Pagination */}
       <div className="flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
           Showing {meta?.from || 0} to {meta?.to || 0} of {meta?.total || 0} categories

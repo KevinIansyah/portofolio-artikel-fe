@@ -88,18 +88,18 @@ export default function AddForm() {
       <DrawerTrigger asChild>
         <Button>
           {t("datatable.add")}
-          <Plus />
+          <Plus className="size-4" />
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
-        <div className="max-w-lg w-full mx-auto overflow-y-auto">
-          <DrawerHeader>
-            <DrawerTitle>{t("heading.category.add.title")}</DrawerTitle>
-            <DrawerDescription>{t("heading.category.add.description")}</DrawerDescription>
-          </DrawerHeader>
-          <form onSubmit={handleSubmit} className="space-y-2">
-            <FieldGroup className="px-4">
-              {/* Name Fields */}
+      <DrawerContent className="h-[70vh]">
+        <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col max-w-xl w-full mx-auto">
+          <div>
+            <DrawerHeader>
+              <DrawerTitle>{t("heading.category.add.title")}</DrawerTitle>
+              <DrawerDescription>{t("heading.category.add.description")}</DrawerDescription>
+            </DrawerHeader>
+
+            <FieldGroup className="px-4 pb-4">
               <Field>
                 <FieldLabel htmlFor="nameId">
                   {t("form.category.label.name")} 🇮🇩 <span className="text-destructive">*</span>
@@ -116,7 +116,6 @@ export default function AddForm() {
                 {validationErrors.name_en && <ValidationError message={validationErrors.name_en[0]} />}
               </Field>
 
-              {/* Type Field */}
               <Field>
                 <FieldLabel htmlFor="type">
                   {t("form.category.label.type")} <span className="text-destructive">*</span>
@@ -136,23 +135,21 @@ export default function AddForm() {
                 {validationErrors.type && <ValidationError message={validationErrors.type[0]} />}
               </Field>
             </FieldGroup>
+          </div>
 
-            <DrawerFooter>
-              {/* Submit Button */}
-              <Button type="submit" className="flex-1" disabled={loading}>
-                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {loading ? t("form.category.button.add.process") : t("form.category.button.add")}
+          <DrawerFooter className="flex flex-col md:flex-row gap-2">
+            <Button type="submit" className="flex-1" disabled={loading}>
+              {loading && <Loader2 className="size-4 animate-spin" />}
+              {loading ? t("form.category.button.add.process") : t("form.category.button.add")}
+            </Button>
+
+            <DrawerClose asChild disabled={loading}>
+              <Button variant="outline" className="flex-1">
+                {t("datatable.cancel")}
               </Button>
-
-              {/* Cancel Button */}
-              <DrawerClose asChild disabled={loading}>
-                <Button variant="outline" className="flex-1">
-                  {t("datatable.cancel")}
-                </Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </form>
-        </div>
+            </DrawerClose>
+          </DrawerFooter>
+        </form>
       </DrawerContent>
     </Drawer>
   );

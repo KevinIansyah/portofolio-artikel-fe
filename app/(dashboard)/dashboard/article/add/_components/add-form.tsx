@@ -133,12 +133,9 @@ export default function AddForm({ categories, tags }: AddFormProps) {
   };
 
   return (
-    <div className="p-4 border rounded-xl">
+    <div>
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* General Error */}
-        {/* {error && <div className="bg-destructive/10 text-destructive px-4 py-3 rounded-lg">{error}</div>} */}
-
-        {/* Title Fields */}
+        {/* Title */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field>
             <FieldLabel htmlFor="titleId">
@@ -157,7 +154,7 @@ export default function AddForm({ categories, tags }: AddFormProps) {
           </Field>
         </div>
 
-        {/* Description Fields */}
+        {/* Description */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field>
             <FieldLabel htmlFor="descriptionId">
@@ -190,7 +187,7 @@ export default function AddForm({ categories, tags }: AddFormProps) {
           </Field>
         </div>
 
-        {/* Meta Fields */}
+        {/* Meta */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field>
             <FieldLabel htmlFor="status">
@@ -257,7 +254,7 @@ export default function AddForm({ categories, tags }: AddFormProps) {
           {validationErrors.tag_ids && <ValidationError message={validationErrors.tag_ids[0]} />}
         </Field>
 
-        {/* Content Fields */}
+        {/* Content */}
         <Field>
           <FieldLabel htmlFor="contentId">
             {t("form.article.label.content")} 🇮🇩 <span className="text-destructive">*</span>
@@ -276,7 +273,7 @@ export default function AddForm({ categories, tags }: AddFormProps) {
 
         {/* Submit Buttons */}
         <Button type="submit" disabled={loading} className="w-full">
-          {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {loading && <Loader2 className="size-4 animate-spin" />}
           {loading ? t("form.article.button.add.process") : t("form.article.button.add")}
         </Button>
       </form>

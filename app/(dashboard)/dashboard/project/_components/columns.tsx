@@ -19,13 +19,13 @@ export default function getColumns(t: (key: TranslationKey) => string, language:
       header: ({ column }) => (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
           {t("table.project.title")}
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ml-2 size-4" />
         </Button>
       ),
       cell: ({ row }) => {
         const project = row.original;
         return (
-          <div className="flex flex-col gap-1 min-w-120 max-w-150">
+          <div className="flex flex-col gap-1 min-w-60 max-w-120">
             <span className="font-medium wrap-break-words whitespace-normal">{project.title}</span>
             <span className="text-xs text-muted-foreground wrap-break-words whitespace-normal">{project.slug}</span>
           </div>
@@ -49,11 +49,16 @@ export default function getColumns(t: (key: TranslationKey) => string, language:
 
         return (
           <div className="flex flex-wrap gap-1">
-            {categories.map((cat) => (
+            {categories.slice(0, 2).map((cat) => (
               <Badge key={cat.id} variant="outline" className="text-xs">
                 {cat.name}
               </Badge>
             ))}
+            {categories.length > 2 && (
+              <Badge variant="outline" className="text-xs">
+                +{categories.length - 2}
+              </Badge>
+            )}
           </div>
         );
       },

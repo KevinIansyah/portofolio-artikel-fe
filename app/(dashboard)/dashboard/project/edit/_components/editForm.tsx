@@ -141,10 +141,7 @@ export default function EditForm({ project, categories, skills }: EditFormProps)
   return (
     <div className="p-4 border rounded-xl">
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* General Error */}
-        {error && <div className="bg-destructive/10 text-destructive px-4 py-3 rounded-lg">{error}</div>}
-
-        {/* Title Fields */}
+        {/* Title */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field>
             <FieldLabel htmlFor="titleId">
@@ -163,7 +160,7 @@ export default function EditForm({ project, categories, skills }: EditFormProps)
           </Field>
         </div>
 
-        {/* Description Fields */}
+        {/* Description */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field>
             <FieldLabel htmlFor="descriptionId">
@@ -196,7 +193,7 @@ export default function EditForm({ project, categories, skills }: EditFormProps)
           </Field>
         </div>
 
-        {/* Meta Fields */}
+        {/* Meta */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Field>
             <FieldLabel htmlFor="status">
@@ -274,7 +271,7 @@ export default function EditForm({ project, categories, skills }: EditFormProps)
           {validationErrors.skill_ids && <ValidationError message={validationErrors.skill_ids[0]} />}
         </Field>
 
-        {/* Content Fields */}
+        {/* Content */}
         <Field>
           <FieldLabel htmlFor="contentId">
             {t("form.project.label.content")} 🇮🇩 <span className="text-destructive">*</span>
@@ -293,7 +290,7 @@ export default function EditForm({ project, categories, skills }: EditFormProps)
 
         {/* Submit Buttons */}
         <Button type="submit" disabled={loading} className="w-full">
-          {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {loading && <Loader2 className="size-4 animate-spin" />}
           {loading ? t("form.project.button.update.process") : t("form.project.button.update")}
         </Button>
       </form>

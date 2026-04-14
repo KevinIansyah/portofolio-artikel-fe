@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Arguments, mutate } from "swr";
 import { Loader2 } from "lucide-react";
 
@@ -28,6 +28,7 @@ interface EditFormProps {
 
 export default function EditForm({ categoryId, open, onOpenChange }: EditFormProps) {
   const { t } = useLanguage();
+  const loadingFocusRef = useRef<HTMLButtonElement>(null);
 
   const [nameId, setNameId] = useState("");
   const [nameEn, setNameEn] = useState("");
@@ -127,15 +128,22 @@ export default function EditForm({ categoryId, open, onOpenChange }: EditFormPro
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent>
-        <div className="max-w-lg w-full mx-auto overflow-y-auto">
-          <DrawerHeader>
-            <DrawerTitle>{t("heading.category.edit.title")}</DrawerTitle>
-            <DrawerDescription>{t("heading.category.edit.description")}</DrawerDescription>
-          </DrawerHeader>
-          {loadingSkeleton ? (
-            <div className="space-y-2">
-              <div className="grid gap-6 px-4">
+      <DrawerContent
+        className="h-[70vh]"
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+          queueMicrotask(() => loadingFocusRef.current?.focus());
+        }}
+      >
+        {loadingSkeleton ? (
+          <div className="flex min-h-0 flex-1 flex-col max-w-xl w-full mx-auto">
+            <div>
+              <DrawerHeader>
+                <DrawerTitle>{t("heading.category.edit.title")}</DrawerTitle>
+                <DrawerDescription>{t("heading.category.edit.description")}</DrawerDescription>
+              </DrawerHeader>
+
+              <div className="grid gap-6 px-4 pb-4">
                 <div className="grid gap-4">
                   <Label htmlFor="edit-category">
                     {t("form.category.label.name")} 🇮🇩 <span className="text-destructive">*</span>
@@ -157,22 +165,28 @@ export default function EditForm({ categoryId, open, onOpenChange }: EditFormPro
                   <Skeleton className="h-10 w-full" />
                 </div>
               </div>
-
-              <DrawerFooter>
-                <Button type="button" disabled tabIndex={8} className="flex-1">
-                  {t("form.tag.button.update")}
-                </Button>
-                <DrawerClose asChild>
-                  <Button variant="outline" type="button" className="flex-1">
-                    {t("datatable.cancel")}
-                  </Button>
-                </DrawerClose>
-              </DrawerFooter>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-2">
-              <FieldGroup className="px-4">
-                {/* Name Fields */}
+
+            <DrawerFooter className="flex flex-col md:flex-row gap-2">
+              <Button type="button" disabled tabIndex={8} className="flex-1">
+                {t("form.category.button.update")}
+              </Button>
+              <DrawerClose asChild>
+                <Button ref={loadingFocusRef} variant="outline" type="button" className="flex-1">
+                  {t("datatable.cancel")}
+                </Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col max-w-xl w-full mx-auto">
+            <div>
+              <DrawerHeader>
+                <DrawerTitle>{t("heading.category.edit.title")}</DrawerTitle>
+                <DrawerDescription>{t("heading.category.edit.description")}</DrawerDescription>
+              </DrawerHeader>
+
+              <FieldGroup className="px-4 pb-4">
                 <Field>
                   <FieldLabel htmlFor="nameId">
                     {t("form.category.label.name")} 🇮🇩 <span className="text-destructive">*</span>
@@ -189,7 +203,6 @@ export default function EditForm({ categoryId, open, onOpenChange }: EditFormPro
                   {validationErrors.name_en && <ValidationError message={validationErrors.name_en[0]} />}
                 </Field>
 
-                {/* Type Field */}
                 <Field>
                   <FieldLabel htmlFor="type">
                     {t("form.category.label.type")} <span className="text-destructive">*</span>
@@ -209,24 +222,22 @@ export default function EditForm({ categoryId, open, onOpenChange }: EditFormPro
                   {validationErrors.type && <ValidationError message={validationErrors.type[0]} />}
                 </Field>
               </FieldGroup>
+            </div>
 
-              <DrawerFooter>
-                {/* Submit Button */}
-                <Button type="submit" className="flex-1" disabled={loading}>
-                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {loading ? t("form.category.button.update.process") : t("form.category.button.update")}
+            <DrawerFooter className="flex flex-col md:flex-row gap-2">
+              <Button type="submit" className="flex-1" disabled={loading}>
+                {loading && <Loader2 className="size-4 animate-spin" />}
+                {loading ? t("form.category.button.update.process") : t("form.category.button.update")}
+              </Button>
+
+              <DrawerClose asChild disabled={loading}>
+                <Button ref={loadingFocusRef} variant="outline" className="flex-1">
+                  {t("datatable.cancel")}
                 </Button>
-
-                {/* Cancel Button */}
-                <DrawerClose asChild disabled={loading}>
-                  <Button variant="outline" className="flex-1">
-                    {t("datatable.cancel")}
-                  </Button>
-                </DrawerClose>
-              </DrawerFooter>
-            </form>
-          )}
-        </div>
+              </DrawerClose>
+            </DrawerFooter>
+          </form>
+        )}
       </DrawerContent>
     </Drawer>
   );

@@ -18,6 +18,7 @@ import { apiClient } from "@/lib/api/client";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DetailPageBlobs } from "@/components/detail-page-blobs";
 import Heading from "@/components/home/heading";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -93,7 +94,10 @@ export default function Projects({ initialData }: ProjectProps) {
 
   if (projects.length === 0) {
     return (
-      <section className="pt-30 pb-16 mx-auto px-4 max-w-6xl">
+      <>
+        <DetailPageBlobs />
+        <div className="relative z-10">
+          <section className="pt-30 pb-16 mx-auto px-4 max-w-6xl">
         <Heading title={t("heading.home.project.title")} subtitle={t("heading.home.project.subtitle")} description={t("heading.home.project.description")} />
 
         <div className="space-y-4 lg:space-y-6">
@@ -147,12 +151,17 @@ export default function Projects({ initialData }: ProjectProps) {
             </div>
           </div>
         </div>
-      </section>
+          </section>
+        </div>
+      </>
     );
   }
 
   return (
-    <section className="pt-30 pb-16 mx-auto px-4 max-w-6xl">
+    <>
+      <DetailPageBlobs />
+      <div className="relative z-10">
+        <section className="pt-30 pb-16 mx-auto px-4 max-w-6xl">
       <div className="space-y-14">
         <Heading as="h1" title={t("heading.home.project.title")} subtitle={t("heading.home.project.subtitle")} description={t("heading.home.project.description")} />
 
@@ -264,5 +273,7 @@ export default function Projects({ initialData }: ProjectProps) {
         </div>
       </div>
     </section>
+      </div>
+    </>
   );
 }

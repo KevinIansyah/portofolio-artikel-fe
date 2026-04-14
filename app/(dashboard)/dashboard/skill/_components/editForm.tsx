@@ -27,6 +27,7 @@ interface EditFormProps {
 
 export default function EditForm({ skillId, open, onOpenChange }: EditFormProps) {
   const { t } = useLanguage();
+  const loadingFocusRef = useRef<HTMLButtonElement>(null);
 
   const [name, setName] = useState("");
   const [darkIcon, setDarkIcon] = useState<File | null>(null);
@@ -172,7 +173,7 @@ export default function EditForm({ skillId, open, onOpenChange }: EditFormProps)
           id: loadingToast,
           description: "Kesalahan tidak terduga terjadi",
         });
-        
+
         setError("An unexpected error occurred");
       }
     } finally {
@@ -182,16 +183,22 @@ export default function EditForm({ skillId, open, onOpenChange }: EditFormProps)
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent>
-        <div className="max-w-lg w-full mx-auto overflow-y-auto">
-          <DrawerHeader>
-            <DrawerTitle>{t("heading.skill.edit.title")}</DrawerTitle>
-            <DrawerDescription>{t("heading.skill.edit.description")}</DrawerDescription>
-          </DrawerHeader>
-          {loadingSkeleton ? (
-            <div className="space-y-2">
-              <div className="grid gap-6 px-4">
-                {/* Name Skeleton */}
+      <DrawerContent
+        className="h-[70vh]"
+        onOpenAutoFocus={(e) => {
+          e.preventDefault();
+          queueMicrotask(() => loadingFocusRef.current?.focus());
+        }}
+      >
+        {loadingSkeleton ? (
+          <div className="flex min-h-0 flex-1 flex-col max-w-xl w-full mx-auto">
+            <div>
+              <DrawerHeader>
+                <DrawerTitle>{t("heading.skill.edit.title")}</DrawerTitle>
+                <DrawerDescription>{t("heading.skill.edit.description")}</DrawerDescription>
+              </DrawerHeader>
+
+              <div className="grid gap-6 px-4 pb-4">
                 <div className="grid gap-4">
                   <Label htmlFor="edit-name">
                     {t("form.skill.label.name")} <span className="text-destructive">*</span>
@@ -199,7 +206,6 @@ export default function EditForm({ skillId, open, onOpenChange }: EditFormProps)
                   <Skeleton className="h-10 w-full" />
                 </div>
 
-                {/* Dark Icon Skeleton */}
                 <div className="grid gap-4">
                   <Label htmlFor="edit-dark-icon">
                     {t("form.skill.label.darkIcon")} <span className="text-destructive">*</span>
@@ -207,7 +213,6 @@ export default function EditForm({ skillId, open, onOpenChange }: EditFormProps)
                   <Skeleton className="h-10 w-full" />
                 </div>
 
-                {/* Light Icon Skeleton */}
                 <div className="grid gap-4">
                   <Label htmlFor="edit-light-icon">
                     {t("form.skill.label.lightIcon")} <span className="text-destructive">*</span>
@@ -215,22 +220,28 @@ export default function EditForm({ skillId, open, onOpenChange }: EditFormProps)
                   <Skeleton className="h-10 w-full" />
                 </div>
               </div>
-
-              <DrawerFooter>
-                <Button type="button" disabled tabIndex={8} className="flex-1">
-                  {t("form.skill.button.update")}
-                </Button>
-                <DrawerClose asChild>
-                  <Button variant="outline" type="button" className="flex-1">
-                    {t("datatable.cancel")}
-                  </Button>
-                </DrawerClose>
-              </DrawerFooter>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-2">
-              <FieldGroup className="px-4">
-                {/* Name Field */}
+
+            <DrawerFooter className="flex flex-col md:flex-row gap-2">
+              <Button type="button" disabled tabIndex={8} className="flex-1">
+                {t("form.skill.button.update")}
+              </Button>
+              <DrawerClose asChild>
+                <Button ref={loadingFocusRef} variant="outline" type="button" className="flex-1">
+                  {t("datatable.cancel")}
+                </Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex min-h-0 flex-1 flex-col max-w-xl w-full mx-auto">
+            <div>
+              <DrawerHeader>
+                <DrawerTitle>{t("heading.skill.edit.title")}</DrawerTitle>
+                <DrawerDescription>{t("heading.skill.edit.description")}</DrawerDescription>
+              </DrawerHeader>
+
+              <FieldGroup className="px-4 pb-4">
                 <Field>
                   <FieldLabel htmlFor="name">
                     {t("form.skill.label.name")} <span className="text-destructive">*</span>
@@ -239,7 +250,6 @@ export default function EditForm({ skillId, open, onOpenChange }: EditFormProps)
                   {validationErrors.name && <ValidationError message={validationErrors.name[0]} />}
                 </Field>
 
-                {/* Dark Icon Field */}
                 <Field>
                   <FieldLabel htmlFor="darkIcon">{t("form.skill.label.darkIcon")}</FieldLabel>
                   <Input ref={darkIconInputRef} id="darkIcon" name="darkIcon" type="file" accept="image/jpeg,image/png,image/jpg,image/webp,image/svg+xml" onChange={handleDarkIconChange} />
@@ -258,7 +268,6 @@ export default function EditForm({ skillId, open, onOpenChange }: EditFormProps)
                   {validationErrors.dark_icon && <ValidationError message={validationErrors.dark_icon[0]} />}
                 </Field>
 
-                {/* Light Icon Field */}
                 <Field>
                   <FieldLabel htmlFor="lightIcon">{t("form.skill.label.lightIcon")}</FieldLabel>
                   <Input ref={lightIconInputRef} id="lightIcon" name="lightIcon" type="file" accept="image/jpeg,image/png,image/jpg,image/webp,image/svg+xml" onChange={handleLightIconChange} />
@@ -277,24 +286,22 @@ export default function EditForm({ skillId, open, onOpenChange }: EditFormProps)
                   {validationErrors.light_icon && <ValidationError message={validationErrors.light_icon[0]} />}
                 </Field>
               </FieldGroup>
+            </div>
 
-              <DrawerFooter>
-                {/* Submit Button */}
-                <Button type="submit" className="flex-1" disabled={loading}>
-                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {loading ? t("form.skill.button.update.process") : t("form.skill.button.update")}
+            <DrawerFooter className="flex flex-col md:flex-row gap-2">
+              <Button type="submit" className="flex-1" disabled={loading}>
+                {loading && <Loader2 className="size-4 animate-spin" />}
+                {loading ? t("form.skill.button.update.process") : t("form.skill.button.update")}
+              </Button>
+
+              <DrawerClose asChild disabled={loading}>
+                <Button ref={loadingFocusRef} variant="outline" className="flex-1">
+                  {t("datatable.cancel")}
                 </Button>
-
-                {/* Cancel Button */}
-                <DrawerClose asChild disabled={loading}>
-                  <Button variant="outline" className="flex-1">
-                    {t("datatable.cancel")}
-                  </Button>
-                </DrawerClose>
-              </DrawerFooter>
-            </form>
-          )}
-        </div>
+              </DrawerClose>
+            </DrawerFooter>
+          </form>
+        )}
       </DrawerContent>
     </Drawer>
   );

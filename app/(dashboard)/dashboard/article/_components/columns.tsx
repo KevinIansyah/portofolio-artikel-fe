@@ -19,7 +19,7 @@ export default function getColumns(t: (key: TranslationKey) => string, language:
       header: ({ column }) => (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
           {t("table.article.title")}
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ml-2 size-4" />
         </Button>
       ),
       cell: ({ row }) => {
