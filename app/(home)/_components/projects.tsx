@@ -73,7 +73,7 @@ export default function ProjectsSection({ projects, id }: ProjectsSectionProps) 
                     transition={{ duration: 0.45, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <Link href={`/projects/${project.slug}`} className="group block h-full rounded-3xl border border-dashed p-2">
-                      <article className={cn("flex h-full flex-col rounded-2xl border border-border bg-card p-0 shadow-none transition-colors", "hover:border-primary/35")}>
+                      <article className={cn("flex h-full flex-col rounded-2xl border border-border bg-card/40 p-0 shadow-none transition-colors", "hover:border-primary/35")}>
                         <div className="p-2">
                           <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                             <Image

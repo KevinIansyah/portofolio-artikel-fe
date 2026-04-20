@@ -46,7 +46,7 @@ export default function SkillsSection({ skills, id }: SkillsSectionProps) {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.4, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="group flex flex-col items-center justify-center space-y-3 rounded-2xl bg-card p-4 transition-all duration-300 hover:shadow-lg">
+              <div className="group flex flex-col items-center justify-center space-y-3 rounded-2xl bg-card/40 p-4 transition-all duration-300 hover:shadow-lg">
                 <div className="relative h-10 w-10 transition-transform duration-300 group-hover:scale-110">
                   <Image src={getFullImageUrl(skill.dark_icon_url)} alt={skill.name} fill className="object-contain" sizes="40px" unoptimized={unoptimized} />
                 </div>

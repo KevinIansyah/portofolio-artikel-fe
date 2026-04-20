@@ -50,10 +50,10 @@ export default function AppFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-background px-4 py-12 md:py-16">
+    <footer className="relative z-10 px-4 py-12 md:py-16">
       <div className="mx-auto max-w-6xl">
         <div className="rounded-3xl border border-dashed border-border p-2">
-          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm lg:p-6">
+          <div className="rounded-2xl border border-border bg-card/40 p-4 shadow-sm lg:p-6">
             {/* Brand + Navigasi + Media sosial */}
             <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:grid-cols-4 md:gap-8 lg:gap-12">
               <div className="space-y-4 lg:col-span-2">

@@ -81,7 +81,7 @@ export default function ArticlesSection({ articles, id }: ArticlesSectionProps) 
             >
               <Link href={`/articles/${featured.slug}`} className="group block h-full">
                 <ArticleCardFrame>
-                  <article className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors lg:min-h-[280px] lg:flex-row">
+                  <article className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-border bg-card/40 transition-colors lg:min-h-[280px] lg:flex-row">
                     <div className="relative aspect-video w-full shrink-0 lg:aspect-auto lg:w-1/2 lg:max-w-[50%] lg:min-h-[260px]">
                       <Image
                         src={getFullImageUrl(featured.thumbnail_url)}
@@ -199,7 +199,7 @@ function VerticalArticleCard({ article, t, unoptimized }: { article: Article; t:
   return (
     <Link href={`/articles/${article.slug}`} className="group block h-full">
       <ArticleCardFrame>
-        <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-primary/35">
+        <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card/40 transition-colors hover:border-primary/35">
           <div className="p-2">
             <div className="relative aspect-video w-full overflow-hidden rounded-lg">
               <Image
@@ -245,7 +245,7 @@ function CompactArticleCard({ article, t, unoptimized }: { article: Article; t: 
   return (
     <Link href={`/articles/${article.slug}`} className="group block h-full">
       <ArticleCardFrame>
-        <article className="flex h-full min-h-[120px] flex-row gap-3 overflow-hidden rounded-2xl border border-border bg-card p-3 transition-colors hover:border-primary/35 sm:gap-4 sm:p-4">
+        <article className="flex h-full min-h-[120px] flex-row gap-3 overflow-hidden rounded-2xl border border-border bg-card/40 p-3 transition-colors hover:border-primary/35 sm:gap-4 sm:p-4">
           <div className="relative size-24 shrink-0 overflow-hidden rounded-lg sm:size-28">
             <Image
               src={getFullImageUrl(article.thumbnail_url)}

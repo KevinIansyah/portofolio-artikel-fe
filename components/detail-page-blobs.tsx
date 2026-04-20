@@ -33,11 +33,11 @@ export function DetailPageBlobs() {
         animate={{ y: [0, -16, 0], x: [0, -20, 0] }}
         transition={floatTransition(4.5)}
       />
-      <motion.div
+      {/* <motion.div
         className="absolute top-[18%] right-[8%] h-64 w-64 rounded-full bg-emerald-500/25 blur-3xl lg:right-[34%] xl:h-72 xl:w-72"
         animate={{ y: [0, 16, 0], x: [0, -14, 0] }}
         transition={floatTransition(5.5)}
-      />
+      /> */}
     </div>
   );
 }

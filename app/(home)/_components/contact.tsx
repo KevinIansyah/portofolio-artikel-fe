@@ -103,7 +103,7 @@ export default function ContactSection({ id }: ContactSectionProps) {
             transition={{ duration: 0.45, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="border border-dashed border-border rounded-3xl p-2">
-              <div className={cn("rounded-2xl border border-border bg-card p-4 shadow-none transition-colors lg:p-6", "hover:border-primary/35")}>
+              <div className={cn("rounded-2xl border border-border bg-card/40 p-4 shadow-none transition-colors lg:p-6", "hover:border-primary/35")}>
                 <div className="flex h-full flex-col gap-8 md:flex-row lg:gap-6">
                   {/* Form Section */}
                   <div className="flex-1 space-y-4 lg:space-y-6">

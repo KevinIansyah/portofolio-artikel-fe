@@ -21,7 +21,7 @@ export const id = {
   "theme.toggleLabel": "Alihkan tema terang atau gelap",
 
   // Footer
-  "footer.description": "Fullstack Web Developer berpengalaman dengan teknologi modern seperti Vue, React, Tailwind CSS, Laravel, dan NestJS.",
+  "footer.description": "Fullstack Web Developer berpengalaman dengan teknologi modern seperti React, Next.js, Tailwind CSS, dan Laravel.",
 
   "footer.articleSubscribe": "Berlangganan Artikel",
   "footer.articleSubscribeDescription": "Dapatkan artikel dan pembaruan terbaru seputar web development langsung ke email Anda.",
@@ -92,7 +92,7 @@ export const id = {
 
   // Home Hero
   "heading.home.hero.title": "Hii, Saya",
-  "heading.home.hero.description": "Fullstack Web Developer berpengalaman dengan teknologi modern seperti Vue, React, Tailwind CSS, Laravel, dan NestJS",
+  "heading.home.hero.description": "Fullstack Web Developer berpengalaman dengan teknologi modern seperti React, Next.js, Tailwind CSS, dan Laravel",
 
   "button.home.hero.showProjects": "Lihat Proyek",
   "button.home.hero.downloadResume": "Unduh Resume",

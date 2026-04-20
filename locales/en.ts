@@ -22,7 +22,7 @@ export const en: Record<TranslationKey, string> = {
   "theme.toggleLabel": "Toggle light or dark theme",
 
   // Footer
-  "footer.description": "Fullstack Web Developer with experience in modern technologies such as Vue, React, Tailwind CSS, Laravel, and NestJS.",
+  "footer.description": "Fullstack Web Developer with experience in modern technologies such as React, Next.js, Tailwind CSS, and Laravel.",
 
   "footer.articleSubscribe": "Subscribe to Article",
   "footer.articleSubscribeDescription": "Get the latest news and updates about web development directly to your email.",
@@ -93,7 +93,7 @@ export const en: Record<TranslationKey, string> = {
 
   // Home Hero
   "heading.home.hero.title": "Hii, I'm",
-  "heading.home.hero.description": "Fullstack Web Developer with experience in modern technologies such as Vue, React, Tailwind CSS, Laravel, and NestJS",
+  "heading.home.hero.description": "Fullstack Web Developer with experience in modern technologies such as React, Next.js, Tailwind CSS, and Laravel",
 
   "button.home.hero.showProjects": "Show Projects",
   "button.home.hero.downloadResume": "Download Resume",

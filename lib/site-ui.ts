@@ -14,7 +14,7 @@ export const siteCardOuter = "rounded-3xl border border-dashed border-border p-2
 
 /** Isi kartu (hover untuk link / kartu interaktif) */
 export const siteCardInner =
-  "rounded-2xl border border-border bg-card shadow-none transition-colors hover:border-primary/35";
+  "rounded-2xl border border-border bg-card/40 shadow-none transition-colors hover:border-primary/35";
 
 /** Warna/border field (tanpa lebar — dipakai input & select) */
 export const siteFieldTone = cn(

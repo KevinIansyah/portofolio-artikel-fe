@@ -26,11 +26,11 @@ export function HomePageBlobs() {
           animate={{ y: [0, -20, 0], x: [0, 20, 0] }}
           transition={floatTransition(6)}
         />
-        <motion.div
+        {/* <motion.div
           className="absolute top-[28%] right-[8%] h-64 w-64 rounded-full bg-emerald-500/25 blur-3xl lg:right-[40%] xl:h-72 xl:w-72"
           animate={{ y: [0, 16, 0], x: [0, -14, 0] }}
           transition={floatTransition(5.5)}
-        />
+        /> */}
       </div>
     </div>
   );
